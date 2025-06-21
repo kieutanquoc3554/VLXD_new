@@ -74,10 +74,7 @@ const useEmployeeHandler = ({
   const handleSubmit = async (values) => {
     try {
       if (selectedEmployee) {
-        await axios.post(
-          `${apiUrl}/api/auth/update/${selectedEmployee.id}`,
-          values
-        );
+        await axios.post(`/api/employee/update/${selectedEmployee.id}`, values);
         message.success("Cập nhật thông tin nhân viên thành công!");
       } else {
         await axios.post(`${apiUrl}/api/auth/register`, values);

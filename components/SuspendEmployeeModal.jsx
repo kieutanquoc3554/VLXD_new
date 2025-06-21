@@ -31,7 +31,7 @@ export default function SuspendEmployeeModal({ open, onClose, employee }) {
       } else if (suspendType === "date") {
         payload.suspended_until = values.date.format("YYYY-MM-DD");
       }
-      await axios.put(`${apiUrl}/api/auth/suspend/${employee.id}`, payload);
+      await axios.put(`/api/employee/suspend/${employee.id}`, payload);
       message.success("Đã đình chỉ nhân viên");
       onClose(true);
     } catch (error) {
