@@ -8,6 +8,7 @@ import EmployeeTabs from "../../../../components/EmployeeTabs";
 import EmployeeColumn from "../../../../components/EmployeeColumn";
 import EmployeeModal from "../../../../components/EmployeeModal";
 import SuspendEmployeeModal from "../../../../components/SuspendEmployeeModal";
+import { RestoreEmployeeModal } from "../../../../components/RestoreEmployeeModal";
 
 export default function EmployeePage() {
   const [selectedFilterRole, setSelectedFilterRole] = useState(null);
@@ -15,6 +16,7 @@ export default function EmployeePage() {
   const { isLoading, employees, deletedEmployees, fetchEmployees } =
     useEmployee();
   const [isOpenSuspendModal, setIsOpenSuspendModal] = useState(false);
+  const [isOpenRestoreModal, setIsOpenRestoreModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [form] = Form.useForm();
   const {
@@ -29,6 +31,7 @@ export default function EmployeePage() {
     setIsOpenModal,
     setSelectedEmployee,
     setIsOpenSuspendModal,
+    setIsOpenRestoreModal,
     fetchEmployees,
     selectedEmployee,
   });

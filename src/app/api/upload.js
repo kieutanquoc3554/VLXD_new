@@ -1,4 +1,4 @@
-import cloudinary from "@/lib/cloudinary";
+import cloudinary from "@/hook/lib/cloudinary";
 import IncomingForm from "formidable/Formidable";
 import fs from "fs";
 import path from "path";

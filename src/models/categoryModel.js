@@ -1,6 +1,6 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
-exports.getAllCategories = async () => {
+export const getAllCategories = async () => {
   const [categories] =
     await db.query(`SELECT c.id, c.name, c.description, c.created_at, c.disabled,
         c.deleted, COUNT(p.id) AS product_count
@@ -12,27 +12,33 @@ exports.getAllCategories = async () => {
   return categories;
 };
 
-exports.getCategoryById = async (id) => {
+export const getCategoryById = async (id) => {
   const [category] = await db.query(`SELECT * FROM categories WHERE id=?`, [
     id,
   ]);
   return category[0];
 };
 
-exports.createCategory = async (name, description) => {
+export const createCategory = async (name, description) => {
   await db.query(`INSERT INTO categories (name, description) VALUES (?, ?)`, [
     name,
     description,
   ]);
 };
 
-exports.updateCategory = async (id, name, description, disabled, deleted) => {
+export const updateCategory = async (
+  id,
+  name,
+  description,
+  disabled,
+  deleted
+) => {
   await db.query(
     "UPDATE categories SET name=?, description=?, disabled=?, deleted=? WHERE id=?",
     [name, description, disabled, deleted, id]
   );
 };
 
-exports.deleteCategory = async (id) => {
+export const deleteCategory = async (id) => {
   await db.query("DELETE FROM categories WHERE id=?", [id]);
 };

@@ -11,7 +11,7 @@ import { cookies } from "next/headers";
 
 export async function GET() {
   try {
-    const storeCookie = cookies();
+    const storeCookie = await cookies();
     const token = storeCookie.get("token")?.value;
     const user = await getEmployeeByToken(token);
     if (!user) {

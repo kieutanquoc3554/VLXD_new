@@ -1,5 +1,9 @@
-import { Geist, Geist_Mono } from "next/font/google";
+// app/layout.js (or layout.tsx)
+
+import "@ant-design/v5-patch-for-react-19";
 import "./globals.css";
+import { ConfigProvider } from "antd"; // ✅ Antd context
+import viVN from "antd/locale/vi_VN"; // ✅ optional: Vietnamese
 import { ThemeProvider } from "./context/ThemeContext";
 
 export const metadata = {
@@ -9,9 +13,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ConfigProvider locale={viVN}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

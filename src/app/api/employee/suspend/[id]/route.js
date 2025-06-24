@@ -2,7 +2,7 @@ import { suspendEmployee } from "@/models/employeeModel";
 import { NextResponse } from "next/server";
 
 export async function PUT(req, { params }) {
-  const { id } = params;
+  const { id } = await params;
   const body = await req.json();
   const { suspended_permanently, suspended_until } = body;
 

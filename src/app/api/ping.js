@@ -1,5 +1,5 @@
 // src/pages/api/ping.js
-import pool from "@/lib/db";
+import pool from "@/hook/lib/db";
 
 export default async function handler(req, res) {
   try {
