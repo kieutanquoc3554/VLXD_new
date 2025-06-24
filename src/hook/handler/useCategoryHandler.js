@@ -24,10 +24,8 @@ export const useCategoryHandler = ({
 
   const handleDisable = async (id, disabled) => {
     try {
-      const { data: category } = await axios.get(
-        `${apiUrl}/api/category/${id}`
-      );
-      await axios.put(`${apiUrl}/api/category/${id}`, {
+      const { data: category } = await axios.get(`/api/category/${id}`);
+      await axios.put(`/api/category/${id}`, {
         name: category.name,
         description: category.description,
         disabled,
@@ -50,9 +48,7 @@ export const useCategoryHandler = ({
       cancelText: "Huỷ",
       async onOk() {
         try {
-          const { data: category } = await axios.get(
-            `${apiUrl}/api/category/${id}`
-          );
+          const { data: category } = await axios.get(`/api/category/${id}`);
           await axios.put(`${apiUrl}/api/category/${id}`, {
             name: category.name,
             description: category.description,

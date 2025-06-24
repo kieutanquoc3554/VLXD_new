@@ -12,7 +12,7 @@ export default function useInvoice() {
   const fetchInvoice = async () => {
     try {
       setIsLoading(true);
-      const invoiceResponse = await axios.get(`${apiUrl}/api/bill`);
+      const invoiceResponse = await axios.get(`/api/bill`);
       setInvoice(invoiceResponse.data);
       setCustomerInvoice(
         invoiceResponse.data.filter((i) => i.type === "customer")

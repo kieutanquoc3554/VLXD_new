@@ -1,6 +1,6 @@
-const db = require("../utils/db");
+import db from "@/hook/lib/db";
 
-exports.getAllBill = async () => {
+export const getAllBill = async () => {
   const customerQuery = `SELECT p.*, c.name AS customer_name,o.total_price, o.paid_amount, o.remaining_amount 
                         FROM payments p 
                         JOIN orders o ON p.order_id = o.id 
@@ -45,7 +45,7 @@ exports.getAllBill = async () => {
   return [...normalizedCustomer, ...normalizedSupplier];
 };
 
-exports.searchBill = async (query) => {
+export const searchBill = async (query) => {
   const likeQuery = `%${query}%`;
 
   const customerQuery = `
@@ -115,7 +115,7 @@ exports.searchBill = async (query) => {
   };
 };
 
-exports.filterBillByDate = async (date) => {
+export const filterBillByDate = async (date) => {
   const customerQuery = `
     SELECT p.*, c.name AS customer_name, o.total_price, o.paid_amount, o.remaining_amount
     FROM payments p

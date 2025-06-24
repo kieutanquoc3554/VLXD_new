@@ -1,3 +1,4 @@
+"use client";
 import { message, Modal } from "antd";
 import axios from "axios";
 
@@ -6,6 +7,7 @@ const useEmployeeHandler = ({
   setIsOpenModal,
   setSelectedEmployee,
   setIsOpenSuspendModal,
+  setIsOpenRestoreModal,
   fetchEmployees,
   selectedEmployee,
 }) => {
@@ -29,6 +31,8 @@ const useEmployeeHandler = ({
   };
 
   const handleRestoreEmployee = (id) => {
+    console.log("Đang chạy");
+
     Modal.confirm({
       title: "Xác nhận khôi phục?",
       content: "Bạn có chắc chắn muốn khôi phục người dùng này không?",
@@ -36,10 +40,7 @@ const useEmployeeHandler = ({
       cancelText: "Huỷ",
       async onOk() {
         try {
-          const response = await axios.post(
-            `${apiUrl}/api/auth/restore/${id}`,
-            {}
-          );
+          const response = await axios.post(`/api/employee/restore/${id}`, {});
           if (response.status === 200) {
             message.success("Đã khôi phục thành công");
             fetchEmployees();
@@ -56,7 +57,7 @@ const useEmployeeHandler = ({
   const handleDeleteEmployee = async (id) => {
     try {
       const response = await axios.post(
-        `${apiUrl}/api/auth/delete/${id}`,
+        `/api/employee/delete/${id}`,
         {},
         { withCredentials: true }
       );
@@ -74,10 +75,7 @@ const useEmployeeHandler = ({
   const handleSubmit = async (values) => {
     try {
       if (selectedEmployee) {
-        await axios.post(
-          `${apiUrl}/api/auth/update/${selectedEmployee.id}`,
-          values
-        );
+        await axios.post(`/api/employee/update/${selectedEmployee.id}`, values);
         message.success("Cập nhật thông tin nhân viên thành công!");
       } else {
         await axios.post(`${apiUrl}/api/auth/register`, values);
