@@ -6,7 +6,7 @@ import {
   getEmployeeByEmail,
   createSession,
   getEmployeeByToken,
-} from "@/models/employeeModel";
+} from "@/app/models/employeeModel";
 import { cookies } from "next/headers";
 
 export async function GET() {

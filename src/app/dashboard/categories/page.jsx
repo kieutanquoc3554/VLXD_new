@@ -2,8 +2,8 @@
 
 import { Button, Flex, Form, Input, Modal } from "antd";
 import { useEffect, useState } from "react";
-import useCategory from "../../../hook/api/useCategory";
-import { useCategoryHandler } from "../../../hook/handler/useCategoryHandler";
+import useCategory from "../../hook/api/useCategory";
+import { useCategoryHandler } from "../../hook/handler/useCategoryHandler";
 import SearchFilterCategory from "../../../../components/SearchFilterCategory";
 import TabsCategory from "../../../../components/TabsCategory";
 

@@ -1,5 +1,5 @@
 import moment from "moment";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 import { Button, Flex } from "antd";
 
 const ColumnsDebt = (handleViewDetails) => {

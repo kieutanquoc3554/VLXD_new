@@ -1,6 +1,6 @@
 import { Descriptions, Flex, Input, Select } from "antd";
 import moment from "moment";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 import { FiEdit } from "react-icons/fi";
 
 const DebtDescriptions = ({

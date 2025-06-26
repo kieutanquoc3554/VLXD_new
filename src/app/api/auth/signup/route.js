@@ -2,7 +2,7 @@ import {
   getEmployeeByEmail,
   getEmployeeByPhone,
   createEmployee,
-} from "@/models/employeeModel";
+} from "@/app/models/employeeModel";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 

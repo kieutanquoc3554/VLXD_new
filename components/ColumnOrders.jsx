@@ -1,7 +1,7 @@
 import moment from "moment";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 import { Button, Flex, message, Modal, Select, Tag } from "antd";
-import { order } from "@/utils/order";
+import { order } from "@/app/utils/order";
 import axios from "axios";
 
 const ColumnOrders = ({

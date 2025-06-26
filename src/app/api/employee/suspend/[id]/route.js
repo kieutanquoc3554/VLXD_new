@@ -1,4 +1,4 @@
-import { suspendEmployee } from "@/models/employeeModel";
+import { suspendEmployee } from "@/app/models/employeeModel";
 import { NextResponse } from "next/server";
 
 export async function PUT(req, { params }) {

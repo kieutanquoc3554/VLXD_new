@@ -1,6 +1,6 @@
 import { Button, Flex } from "antd";
-import { debt } from "@/utils/debt";
-import formatCurrency from "@/utils/formatCurrency";
+import { debt } from "@/app/utils/debt";
+import formatCurrency from "@/app/utils/formatCurrency";
 
 const ColumnSupplierDebt = (handleViewSupplierDebtDetails) => {
   const { getStatusDebt } = debt();

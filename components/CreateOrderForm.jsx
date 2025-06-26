@@ -1,8 +1,8 @@
 import { Button, Form, InputNumber, message, Select, Table } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import useProduct from "@/hook/api/useProduct";
-import formatCurrency from "@/utils/formatCurrency";
+import useProduct from "@/app/hook/api/useProduct";
+import formatCurrency from "@/app/utils/formatCurrency";
 
 const CreateOrderForm = ({ onSuccess }) => {
   const [form] = Form.useForm();

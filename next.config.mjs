@@ -1,7 +1,10 @@
-/** @type {import('next').NextConfig} */
-// ✅ next.config.mjs (ES module)
-export default {
-  experimental: {
-    externalDir: true,
-  },
+// @ts-check
+
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+  devIndicators: false,
 };
+
+export default nextConfig;

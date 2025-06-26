@@ -1,7 +1,7 @@
 import { Table, Tabs } from "antd";
 import ColumnActiveCategory from "../components/ColumnActiveCategory";
 import ColumnDeletedCategory from "../components/ColumnDeletedCategory";
-import { useCategoryHandler } from "../src/hook/handler/useCategoryHandler";
+import { useCategoryHandler } from "../src/app/hook/handler/useCategoryHandler";
 
 const { TabPane } = Tabs;
 

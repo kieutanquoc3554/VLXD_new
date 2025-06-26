@@ -1,4 +1,4 @@
-import { getAllEmployees } from "@/models/employeeModel";
+import { getAllEmployees } from "@/app/models/employeeModel";
 import { NextResponse } from "next/server";
 
 export async function GET() {

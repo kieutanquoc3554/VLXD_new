@@ -1,6 +1,6 @@
 import { Modal, Descriptions, Table, Divider, Tag, Input, message } from "antd";
 import ActionButtonSupplierDebt from "../components/ActionButtonSupplierDebt";
-import useSupplierDebtHandler from "@/hook/handler/useSupplierDebtHandler";
+import useSupplierDebtHandler from "@/app/hook/handler/useSupplierDebtHandler";
 
 const SupplierDebtModal = ({
   selectedSupplierDebt,

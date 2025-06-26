@@ -1,8 +1,8 @@
 "use client";
 import { Form } from "antd";
 import { useState } from "react";
-import useSuppliers from "../../../hook/api/useSuppliers";
-import useSuppliersHandler from "../../../hook/handler/useSuppliersHandler";
+import useSuppliers from "../../hook/api/useSuppliers";
+import useSuppliersHandler from "../../hook/handler/useSuppliersHandler";
 import SupplierColumn from "../../../../components/SupplierColumn";
 import SupplierToolbar from "../../../../components/SupplierToolbar";
 import SupplierTabs from "../../../../components/SupplierTabs";

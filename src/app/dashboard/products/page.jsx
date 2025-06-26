@@ -2,10 +2,10 @@
 import { Button, Flex, Input, Modal, Select, Table, Tabs } from "antd";
 import { useEffect, useState } from "react";
 import AddProductFormModal from "../../../../components/AddProductFormModal";
-import useUser from "../../../hook/api/useUser";
-import useProduct from "../../../hook/api/useProduct";
-import useProductColumns from "../../../hook/ui/useProductColumns";
-import { useProductHandler } from "../../../hook/handler/useProductHandler";
+import useUser from "../../hook/api/useUser";
+import useProduct from "../../hook/api/useProduct";
+import useProductColumns from "../../hook/ui/useProductColumns";
+import { useProductHandler } from "../../hook/handler/useProductHandler";
 
 const { TabPane } = Tabs;
 

@@ -1,5 +1,5 @@
 import { Descriptions, Table } from "antd";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 
 const DetailsOrderForm = ({ form }) => {
   const paidAmount = form.getFieldValue("paid_amount") || 0;

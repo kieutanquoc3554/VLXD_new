@@ -3,7 +3,7 @@ import {
   deleteCategory,
   getCategoryById,
   updateCategory,
-} from "@/models/categoryModel";
+} from "@/app/models/categoryModel";
 import { message } from "antd";
 
 export async function GET(req, { params }) {

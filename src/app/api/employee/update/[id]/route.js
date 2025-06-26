@@ -1,4 +1,4 @@
-import { updateEmployee } from "@/models/employeeModel";
+import { updateEmployee } from "@/app/models/employeeModel";
 import { NextResponse } from "next/server";
 
 export async function POST(req, { params }) {
