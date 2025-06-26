@@ -1,4 +1,4 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
 exports.getAllInventory = async () => {
   const sql = `SELECT inventory.*, products.name AS product_name, categories.name AS product_category 

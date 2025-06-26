@@ -1,6 +1,6 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
-exports.getAllOrders = async () => {
+export const getAllOrders = async () => {
   const [rows] = await db.query(
     `SELECT o.*, c.name AS customer_name
      FROM orders o
@@ -10,7 +10,7 @@ exports.getAllOrders = async () => {
   return rows;
 };
 
-exports.getOrderById = async (id) => {
+export const getOrderById = async (id) => {
   const [orders] = await db.query(
     `SELECT o.*, c.name AS customer_name, p.payment_method FROM orders o
     JOIN customer c ON o.customer_id = c.id
@@ -33,7 +33,7 @@ exports.getOrderById = async (id) => {
   return orderMap;
 };
 
-exports.createOrder = async (customer_id, items, userId, paid_amount) => {
+export const createOrder = async (customer_id, items, userId, paid_amount) => {
   const conn = await db.getConnection();
   try {
     await conn.beginTransaction();
@@ -102,15 +102,15 @@ exports.createOrder = async (customer_id, items, userId, paid_amount) => {
   }
 };
 
-exports.updateOrderStatus = async (id, status) => {
+export const updateOrderStatus = async (id, status) => {
   await db.query(`UPDATE orders SET status = ? WHERE id = ?`, [status, id]);
   return { message: "Cập nhật trạng thái thành công!" };
 };
 
 // Hàm xoá đơn hàng cập nhật sau nha sếp (chắc qua lễ) :(
-exports.deleteOrder = async (id) => {};
+export const deleteOrder = async (id) => {};
 
-exports.updateDebtByOrderId = async (amount, id) => {
+export const updateDebtByOrderId = async (amount, id) => {
   await db.query(
     `UPDATE orders SET paid_amount = paid_amount + ? 
     WHERE id = ?`,
@@ -119,7 +119,7 @@ exports.updateDebtByOrderId = async (amount, id) => {
   return { message: "Cập nhật công nợ khách hàng thành công!" };
 };
 
-exports.searchOrder = async (value) => {
+export const searchOrder = async (value) => {
   const likeQuery = `%${value}%`;
   const [orders] = await db.query(
     `SELECT o.*, c.name AS customer_name

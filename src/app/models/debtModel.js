@@ -1,6 +1,6 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
-exports.getAllDebts = async () => {
+export const getAllDebts = async () => {
   const sql = `SELECT o.id AS order_id, c.id AS customer_id, c.name AS customer_name, o.total_price,
   o.paid_amount, (o.total_price - o.paid_amount) AS remaining_debt, o.order_date
   FROM orders o 
@@ -10,7 +10,7 @@ exports.getAllDebts = async () => {
   return debt;
 };
 
-exports.getDebtsByOrderId = async (order_id) => {
+export const getDebtsByOrderId = async (order_id) => {
   const orderSql = `SELECT o.*, c.name AS customer_name, c.phone AS customer_phone, p.payment_method
                     FROM orders o 
                     JOIN customer c ON o.customer_id = c.id
@@ -34,7 +34,7 @@ exports.getDebtsByOrderId = async (order_id) => {
   return debtMap[0];
 };
 
-exports.getSupplierDebts = async () => {
+export const getSupplierDebts = async () => {
   const sql = `SELECT st.id, s.id AS supplier_id, s.name AS supplier_name, islip.created_at AS import_date, 
                 st.amount, st.paid_amount, st.remaining_amount, st.status
                 FROM supplier_transactions st 
@@ -45,7 +45,7 @@ exports.getSupplierDebts = async () => {
   return supplierDebts;
 };
 
-exports.searchDebts = async (query) => {
+export const searchDebts = async (query) => {
   const likeQuery = `%${query}%`;
   const customerSearchQuery = `SELECT o.id AS order_id, c.id AS customer_id, c.name AS customer_name, o.total_price,
                                 o.paid_amount, (o.total_price - o.paid_amount) AS remaining_debt, o.order_date
@@ -65,7 +65,7 @@ exports.searchDebts = async (query) => {
   return { customer: customerDebt, supplier: supplierDebt };
 };
 
-exports.filterDebtByDate = async (date) => {
+export const filterDebtByDate = async (date) => {
   const customerSearchQuery = `SELECT o.id AS order_id, c.id AS customer_id, c.name AS customer_name, o.total_price,
                                 o.paid_amount, (o.total_price - o.paid_amount) AS remaining_debt, o.order_date
                                 FROM orders o 
@@ -84,7 +84,7 @@ exports.filterDebtByDate = async (date) => {
   return { customer: customerDebt, supplier: supplierDebt };
 };
 
-exports.getTransactionById = async (transactionId) => {
+export const getTransactionById = async (transactionId) => {
   const transactionSQL = `SELECT st.*, s.name AS supplier_name, s.phone,  islip.note, islip.created_at
                           FROM supplier_transactions st
                           JOIN suppliers s ON st.supplier_id = s.id
@@ -94,7 +94,7 @@ exports.getTransactionById = async (transactionId) => {
   return transaction[0];
 };
 
-exports.getImportSlipItems = async (importSlipId) => {
+export const getImportSlipItems = async (importSlipId) => {
   const sql = `SELECT isi.*, p.name, p.image_url, c.name AS category_name FROM import_slip_items isi 
               JOIN products p ON p.id = isi.product_id
               LEFT JOIN categories c ON c.id = p.category_id
@@ -103,7 +103,7 @@ exports.getImportSlipItems = async (importSlipId) => {
   return items;
 };
 
-exports.getPaymentsByTransactionId = async (transactionId) => {
+export const getPaymentsByTransactionId = async (transactionId) => {
   const sql = `SELECT * FROM supplier_payment WHERE supplier_transactions_id = ?`;
   const [rows] = await db.query(sql, [transactionId]);
   return rows;

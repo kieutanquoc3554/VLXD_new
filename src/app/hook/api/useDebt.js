@@ -9,7 +9,7 @@ export default function useDebt() {
 
   const fetchDebt = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/debt`);
+      const response = await axios.get(`/api/debt`);
       setDebt(response.data);
     } catch (error) {
       console.error("Lỗi lấy công nợ", error);
@@ -18,7 +18,7 @@ export default function useDebt() {
 
   const fetchSupplierDebt = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/debt/get/supplierDebt`);
+      const response = await axios.get(`/api/debt/supplierDebt`);
       setSupplierDebt(response.data);
     } catch (error) {
       console.error("Lỗi lấy công nợ", error);

@@ -1,4 +1,4 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
 exports.createTransaction = async ({
   product_id,

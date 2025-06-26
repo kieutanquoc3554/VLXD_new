@@ -1,4 +1,4 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
 exports.updateImage = async (productId, imageUrl) => {
   const sql = "UPDATE products SET image_url = ? WHERE id = ?";

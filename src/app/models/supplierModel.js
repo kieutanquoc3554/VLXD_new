@@ -1,4 +1,4 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
 exports.getAllSuppliers = async () => {
   const [suppliers] = await db.query(`SELECT * FROM suppliers`);

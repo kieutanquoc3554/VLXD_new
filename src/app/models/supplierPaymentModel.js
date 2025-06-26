@@ -1,4 +1,4 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
 exports.createSupplierPayment = async (transactionId, amount, note) => {
   const insertSQL = `INSERT INTO supplier_payment (supplier_transactions_id, amount, note) VALUES (?, ?, ?)`;

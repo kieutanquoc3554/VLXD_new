@@ -30,14 +30,11 @@ export default function useDebtHandler({
         return message.error("Thiếu số tiền hoặc phương thức thanh toán");
       }
       const amount_customer = parseFloat(amount);
-      const response = await axios.post(
-        `${apiUrl}/api/debt/update/${detailDebt.id}`,
-        {
-          id: detailDebt.id,
-          amount: amount_customer,
-          payment_method: paymentMethod,
-        }
-      );
+      const response = await axios.post(`/api/debt/${detailDebt.id}`, {
+        id: detailDebt.id,
+        amount: amount_customer,
+        payment_method: paymentMethod,
+      });
       message.success(response.data.message);
       fetchDebt();
       fetchViewDetails();
