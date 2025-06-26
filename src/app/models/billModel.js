@@ -1,4 +1,4 @@
-import db from "@/hook/lib/db";
+import db from "../lib/db";
 
 export const getAllBill = async () => {
   const customerQuery = `SELECT p.*, c.name AS customer_name,o.total_price, o.paid_amount, o.remaining_amount 

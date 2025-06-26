@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { getSessionByToken } from "@/models/employeeModel";
+import { getSessionByToken } from "@/app/models/employeeModel";
 
 export async function checkAuth(req, res) {
   const token = req.cookies?.token;

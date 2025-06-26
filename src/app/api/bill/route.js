@@ -1,4 +1,4 @@
-import { getAllBill } from "@/models/billModel";
+import { getAllBill } from "@/app/models/billModel";
 import { NextResponse } from "next/server";
 
 export async function GET() {

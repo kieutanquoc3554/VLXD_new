@@ -1,5 +1,5 @@
 import { Image } from "antd";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 
 const ColumnProductDebt = () => {
   return [

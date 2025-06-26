@@ -1,6 +1,6 @@
 "use client";
-import useEmployee from "@/hook/api/useEmployee";
-import useEmployeeHandler from "@/hook/handler/useEmployeeHandler";
+import useEmployee from "@/app/hook/api/useEmployee";
+import useEmployeeHandler from "@/app/hook/handler/useEmployeeHandler";
 import { Form } from "antd";
 import { useEffect, useState } from "react";
 import EmployeeToolbar from "../../../../components/EmployeeToolbar";

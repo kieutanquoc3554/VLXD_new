@@ -1,5 +1,5 @@
 import moment from "moment";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 
 const ColumnHistoryDebt = () => {
   return [

@@ -1,4 +1,4 @@
-import { filterBillByDate } from "@/models/billModel";
+import { filterBillByDate } from "@/app/models/billModel";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {

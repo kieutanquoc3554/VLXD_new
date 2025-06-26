@@ -1,6 +1,6 @@
-const db = require("../utils/db");
+import db from "../lib/db";
 
-exports.getAllCustomers = async () => {
+export const getAllCustomers = async () => {
   try {
     const sql = `SELECT * FROM customer`;
     const [customers] = await db.query(sql);
@@ -10,7 +10,7 @@ exports.getAllCustomers = async () => {
   }
 };
 
-exports.createCustomer = async (name, phone, email, address) => {
+export const createCustomer = async (name, phone, email, address) => {
   try {
     const sql =
       "INSERT INTO customer (name, phone, email, address) VALUES (?, ?, ?, ?)";
@@ -20,7 +20,7 @@ exports.createCustomer = async (name, phone, email, address) => {
   }
 };
 
-exports.updateCustomer = async (id, name, phone, email, address) => {
+export const updateCustomer = async (id, name, phone, email, address) => {
   try {
     const sql =
       "UPDATE customer SET name=?, phone=?, email=?, address=? WHERE id=?";
@@ -31,7 +31,7 @@ exports.updateCustomer = async (id, name, phone, email, address) => {
   }
 };
 
-exports.deleteCustomer = async (id) => {
+export const deleteCustomer = async (id) => {
   try {
     const sql = "UPDATE customer SET deleted = TRUE WHERE id=?";
     const [result] = await db.query(sql, [id]);
@@ -41,7 +41,7 @@ exports.deleteCustomer = async (id) => {
   }
 };
 
-exports.getCustomerById = async (id) => {
+export const getCustomerById = async (id) => {
   try {
     const sql = "SELECT * FROM customer WHERE id=?";
     const [customer] = await db.query(sql, [id]);
@@ -51,11 +51,22 @@ exports.getCustomerById = async (id) => {
   }
 };
 
-exports.restoreCustomer = async (id) => {
+export const restoreCustomer = async (id) => {
   try {
     const sql = "UPDATE customer SET deleted = FALSE WHERE id=?";
     await db.query(sql, [id]);
   } catch (error) {
     throw error;
+  }
+};
+
+export const searchCustomer = async (value) => {
+  const query = `%${value}%`;
+  try {
+    const sql = "SELECT * FROM customer WHERE customer.name LIKE ?";
+    const [customer] = await db.query(sql, [query]);
+    return customer;
+  } catch (error) {
+    console.log("Có lỗi xảy ra!" + error);
   }
 };

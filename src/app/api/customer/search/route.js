@@ -1,22 +1,21 @@
-import { searchBill } from "@/app/models/billModel";
+import { searchCustomer } from "@/app/models/customerModel";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query");
-  if (!query)
+  if (!query) {
     return NextResponse.json(
-      { error: "Thiếu từ khóa tìm kiếm" },
+      { message: "Thiếu từ khoá tìm kiếm" },
       { status: 400 }
     );
-
+  }
   try {
-    const results = await searchBill(query);
+    const results = await searchCustomer(query);
     return NextResponse.json(results);
-  } catch (err) {
-    console.error("Lỗi tìm kiếm phiếu thanh toán:", err);
+  } catch (error) {
     return NextResponse.json(
-      { error: "Lỗi máy chủ khi tìm kiếm phiếu thanh toán" },
+      { error: "Lỗi máy chủ khi tìm kiếm khách hàng" },
       { status: 500 }
     );
   }

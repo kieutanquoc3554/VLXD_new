@@ -1,5 +1,5 @@
 import { Tag } from "antd";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 import moment from "moment";
 
 const ColumnImportSlips = () => {

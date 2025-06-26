@@ -1,8 +1,8 @@
 "use client";
 
-import useInventory from "@/hook/api/useInventory";
-import useProduct from "@/hook/api/useProduct";
-import useSuppliers from "@/hook/api/useSuppliers";
+import useInventory from "@/app/hook/api/useInventory";
+import useProduct from "@/app/hook/api/useProduct";
+import useSuppliers from "@/app/hook/api/useSuppliers";
 import { Button, Flex, Form, Input, InputNumber, Modal, Select } from "antd";
 import TabsInventory from "../../../../components/TabsInventory";
 import InventoryModal from "../../../../components/InventoryModal";

@@ -1,4 +1,4 @@
-import { deleteSession } from "@/models/employeeModel";
+import { deleteSession } from "@/app/models/employeeModel";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 

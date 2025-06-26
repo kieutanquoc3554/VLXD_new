@@ -4,7 +4,7 @@ import ColumnHistoryDebt from "./ColumnHistoryDebt";
 import DebtDescriptions from "./DebtDescriptions";
 import pdfMake from "pdfmake/build/pdfmake";
 import moment from "moment";
-import formatCurrency from "@/utils/formatCurrency";
+import formatCurrency from "@/app/utils/formatCurrency";
 
 const DebtModal = ({
   isModalViewDetails,
