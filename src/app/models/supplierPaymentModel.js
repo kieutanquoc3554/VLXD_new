@@ -1,6 +1,6 @@
 import db from "../lib/db";
 
-exports.createSupplierPayment = async (transactionId, amount, note) => {
+export const createSupplierPayment = async (transactionId, amount, note) => {
   const insertSQL = `INSERT INTO supplier_payment (supplier_transactions_id, amount, note) VALUES (?, ?, ?)`;
   await db.query(insertSQL, [
     transactionId,
