@@ -52,10 +52,15 @@ export default function DebtPage() {
   } = useDebtSearch();
   const {
     date,
+    status,
     setDate,
-    handleFilterByDate,
+    setStatus,
     filteredCustomerByDate,
     filteredSupplierByDate,
+    filteredCustomerByStatus,
+    filteredSupplierByStatus,
+    handleFilterByStatus,
+    handleFilterByDate,
   } = useDebtFilter({ setIsSearched });
 
   return (
@@ -65,7 +70,9 @@ export default function DebtPage() {
         setSearchTerm={setSearchTerm}
         onSearch={handleSearch}
         setDate={setDate}
+        setStatus={setStatus}
         onFilter={handleFilterByDate}
+        onFilterByStatus={handleFilterByStatus}
       />
       <TabsDebt
         supplierDebt={supplierDebt}
@@ -77,8 +84,11 @@ export default function DebtPage() {
         filteredSupplierDebt={filteredSupplierDebt}
         filteredCustomerByDate={filteredCustomerByDate}
         filteredSupplierByDate={filteredSupplierByDate}
+        filteredCustomerByStatus={filteredCustomerByStatus}
+        filteredSupplierByStatus={filteredSupplierByStatus}
         isSearched={isSearched}
         date={date}
+        status={status}
       />
       <DebtModal
         isModalViewDetails={isModalViewDetails}

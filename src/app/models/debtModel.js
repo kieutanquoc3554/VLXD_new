@@ -84,6 +84,35 @@ export const filterDebtByDate = async (date) => {
   return { customer: customerDebt, supplier: supplierDebt };
 };
 
+export const filterDebtByStatus = async (status) => {
+  let customerSearchQuery = `SELECT o.id AS order_id, c.id AS customer_id, c.name AS customer_name, o.total_price,
+                                o.paid_amount, (o.total_price - o.paid_amount) AS remaining_debt, o.order_date
+                                FROM orders o 
+                                JOIN customer c ON o.customer_id = c.id
+                                WHERE 1 = 1 `;
+  let supplierSearchQuery = `SELECT st.id, s.id AS supplier_id, s.name AS supplier_name, islip.created_at AS import_date, 
+                                st.amount, st.paid_amount, st.remaining_amount, st.status
+                                FROM supplier_transactions st 
+                                JOIN suppliers s ON st.supplier_id = s.id
+                                JOIN import_slips islip ON st.import_slip_id = islip.id
+                                WHERE 1 = 1 `;
+  const paramsCustomer = [];
+  const paramsSupplier = [];
+  if (status == "paid") {
+    customerSearchQuery += " AND o.total_price = o.paid_amount";
+    supplierSearchQuery += ' AND st.status = "paid"';
+  } else if (status == "unpaid") {
+    customerSearchQuery += " AND o.total_price > o.paid_amount";
+    supplierSearchQuery += " AND st.status = 'partial'";
+  }
+  customerSearchQuery += " ORDER BY o.order_date DESC";
+  supplierSearchQuery += " ORDER BY islip.created_at DESC";
+
+  const [customerDebt] = await db.query(customerSearchQuery, paramsCustomer);
+  const [supplierDebt] = await db.query(supplierSearchQuery, paramsSupplier);
+  return { customer: customerDebt, supplier: supplierDebt };
+};
+
 export const getTransactionById = async (transactionId) => {
   const transactionSQL = `SELECT st.*, s.name AS supplier_name, s.phone,  islip.note, islip.created_at
                           FROM supplier_transactions st
