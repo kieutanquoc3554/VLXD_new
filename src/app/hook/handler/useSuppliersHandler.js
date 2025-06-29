@@ -1,5 +1,6 @@
 import { message, Modal } from "antd";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const useSuppliersHandler = ({
   form,
@@ -9,6 +10,9 @@ const useSuppliersHandler = ({
   fetchSuppliers,
 }) => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchedSupplier, setSearchedSupplier] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleAddSupplier = () => {
     setSelectedSupplier(null);
@@ -25,13 +29,10 @@ const useSuppliersHandler = ({
   const handleSubmit = async (values) => {
     try {
       if (selectedSupplier) {
-        await axios.put(
-          `${apiUrl}/api/supplier/${selectedSupplier.id}`,
-          values
-        );
+        await axios.put(`/api/supplier/${selectedSupplier.id}`, values);
         message.success("Cập nhật danh mục thành công!");
       } else {
-        await axios.post(`${apiUrl}/api/supplier`, values);
+        await axios.post(`/api/supplier`, values);
         message.success("Thêm cung cấp thành công!");
       }
       fetchSuppliers();
@@ -67,7 +68,7 @@ const useSuppliersHandler = ({
 
   const handleRestore = async (id) => {
     try {
-      await axios.post(`${apiUrl}/api/supplier/restore/${id}`, {});
+      await axios.post(`/api/supplier/${id}/restore`, {});
       message.success("Đã khôi phục thành công");
       fetchSuppliers();
     } catch (error) {
@@ -75,12 +76,38 @@ const useSuppliersHandler = ({
     }
   };
 
+  const handleSearch = async () => {
+    try {
+      setIsSearching(true);
+      const response = await axios.get(
+        `/api/supplier/search?query=${searchTerm}`
+      );
+      setSearchedSupplier(response.data);
+      message.success("Tìm kiếm hoàn tất!");
+    } catch (error) {
+      message.error("Có lỗi trong quá trình tìm kiếm");
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!searchTerm) {
+      setSearchedSupplier([]);
+    }
+  }, [searchTerm]);
+
   return {
+    searchTerm,
+    setSearchTerm,
+    searchedSupplier,
+    isSearching,
     handleAddSupplier,
     handleEditSupplier,
     handleSubmit,
     handleDeleteSupplier,
     handleRestore,
+    handleSearch,
   };
 };
 

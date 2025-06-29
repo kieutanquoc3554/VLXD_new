@@ -40,3 +40,12 @@ export const restoreSupplier = async (id) => {
   );
   return result.affectedRows > 0;
 };
+
+export const searchSupplier = async (value) => {
+  const query = `%${value}%`;
+  const [supplier] = await db.query(
+    `SELECT * FROM suppliers s WHERE s.name LIKE ?`,
+    [query]
+  );
+  return supplier;
+};
