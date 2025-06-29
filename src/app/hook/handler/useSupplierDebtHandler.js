@@ -34,7 +34,7 @@ export default function useSupplierDebtHandler() {
 
     try {
       const response = await axios.post(
-        `${apiUrl}/api/debt/updateSupplier/${details.id}`,
+        `${apiUrl}/api/debt/supplierDebt/${details.id}`,
         {
           amount: Number(paymentAmount),
         }

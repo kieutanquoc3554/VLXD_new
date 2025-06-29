@@ -16,9 +16,7 @@ export default function useDebtSearch() {
       if (!searchTerm) {
         return message.error("Không có từ khoá tìm kiếm");
       }
-      const response = await axios.get(
-        `${apiUrl}/api/debt/search/searchDebt?query=${searchTerm}`
-      );
+      const response = await axios.get(`/api/debt/search?query=${searchTerm}`);
       setFilteredCustomerDebt(response.data.customer);
       setFilteredSupplierDebt(response.data.supplier);
     } catch (error) {

@@ -5,16 +5,30 @@ import { useEffect, useState } from "react";
 
 export default function useDebtFilter({ setIsSearched }) {
   const [date, setDate] = useState("");
+  const [status, setStatus] = useState("");
   const [filteredCustomerByDate, setFilteredCustomerByDate] = useState([]);
   const [filteredSupplierByDate, setFilteredSupplierByDate] = useState([]);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const [filteredCustomerByStatus, setFilteredCustomerByStatus] = useState([]);
+  const [filteredSupplierByStatus, setFilteredSupplierByStatus] = useState([]);
+
+  const handleFilterByStatus = async () => {
+    setIsSearched(true);
+    try {
+      const response = await axios.get(
+        `/api/debt/search/bystatus?status=${status}`
+      );
+      setFilteredCustomerByStatus(response.data.customer);
+      setFilteredSupplierByStatus(response.data.supplier);
+      message.success("Tìm kiếm thành công!");
+    } catch (error) {
+      message.error("Có lỗi xảy ra!", error);
+    }
+  };
 
   const handleFilterByDate = async () => {
     setIsSearched(true);
     try {
-      const response = await axios.get(
-        `${apiUrl}/api/debt/filter/bydate?date=${date}`
-      );
+      const response = await axios.get(`/api/debt/search/bydate?date=${date}`);
       setFilteredCustomerByDate(response.data.customer);
       setFilteredSupplierByDate(response.data.supplier);
       message.success("Tìm kiếm thành công!");
@@ -29,13 +43,23 @@ export default function useDebtFilter({ setIsSearched }) {
       setFilteredCustomerByDate([]);
       setFilteredSupplierByDate([]);
     }
-  }, [date]);
+    if (!status) {
+      setIsSearched(false);
+      setFilteredCustomerByStatus([]);
+      setFilteredSupplierByStatus([]);
+    }
+  }, [date, status]);
 
   return {
     date,
+    status,
     setDate,
+    setStatus,
     filteredCustomerByDate,
     filteredSupplierByDate,
+    filteredCustomerByStatus,
+    filteredSupplierByStatus,
+    handleFilterByStatus,
     handleFilterByDate,
   };
 }

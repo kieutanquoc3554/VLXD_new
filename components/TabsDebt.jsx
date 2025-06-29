@@ -14,8 +14,11 @@ const TabsDebt = ({
   filteredSupplierDebt,
   filteredCustomerByDate,
   filteredSupplierByDate,
+  filteredCustomerByStatus,
+  filteredSupplierByStatus,
   isSearched,
   date,
+  status,
 }) => {
   return (
     <Tabs defaultActiveKey="1" onChange={setSelectedTab}>
@@ -25,6 +28,8 @@ const TabsDebt = ({
             isSearched
               ? date
                 ? filteredCustomerByDate
+                : status
+                ? filteredCustomerByStatus
                 : filteredCustomerDebt
               : debt
           }
@@ -37,6 +42,8 @@ const TabsDebt = ({
             isSearched
               ? date
                 ? filteredSupplierByDate
+                : status
+                ? filteredSupplierByStatus
                 : filteredSupplierDebt
               : supplierDebt
           }

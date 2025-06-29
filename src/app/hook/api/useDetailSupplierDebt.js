@@ -10,7 +10,7 @@ export default function useDetailSupplierDebt(selectedSupplierDebt) {
     try {
       if (selectedSupplierDebt?.id) {
         const response = await axios.get(
-          `${apiUrl}/api/debt/supplier-debts/${selectedSupplierDebt.id}`
+          `/api/debt/supplierDebt/${selectedSupplierDebt.id}`
         );
         setDetailSupplierDebt(response.data);
       }
