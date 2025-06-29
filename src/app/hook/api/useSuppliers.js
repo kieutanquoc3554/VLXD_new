@@ -12,7 +12,7 @@ export default function useSuppliers() {
   const fetchSuppliers = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${apiUrl}/api/supplier/`);
+      const { data } = await axios.get(`/api/supplier/`);
       setSuppliers(data.filter((supplier) => !supplier.deleted));
       setDeletedSuppliers(data.filter((supplier) => supplier.deleted));
     } catch (error) {

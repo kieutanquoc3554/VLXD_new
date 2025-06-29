@@ -15,11 +15,16 @@ export default function Suppliers() {
   const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
+    searchTerm,
+    setSearchTerm,
+    searchedSupplier,
+    isSearching,
     handleAddSupplier,
     handleEditSupplier,
     handleSubmit,
     handleDeleteSupplier,
     handleRestore,
+    handleSearch,
   } = useSuppliersHandler({
     form,
     setSelectedSupplier,
@@ -35,13 +40,20 @@ export default function Suppliers() {
   return (
     <div>
       <h2>Quản lý nhà cung cấp</h2>
-      <SupplierToolbar handleAddSupplier={handleAddSupplier} />
+      <SupplierToolbar
+        setSearchTerm={setSearchTerm}
+        handleSearchSupplier={handleSearch}
+        handleAddSupplier={handleAddSupplier}
+      />
       <SupplierTabs
         loading={loading}
         columns={columns}
         columnsDeleted={columnsDeleted}
         deletedSuppliers={deletedSuppliers}
         suppliers={suppliers}
+        isSearching={isSearching}
+        searchedSupplier={searchedSupplier}
+        searchTerm={searchTerm}
       />
       <SupplierModal
         form={form}
