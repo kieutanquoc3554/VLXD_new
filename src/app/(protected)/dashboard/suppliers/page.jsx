@@ -1,12 +1,12 @@
 "use client";
 import { Form } from "antd";
 import { useState } from "react";
-import useSuppliers from "../../hook/api/useSuppliers";
-import useSuppliersHandler from "../../hook/handler/useSuppliersHandler";
-import SupplierColumn from "../../../../components/SupplierColumn";
-import SupplierToolbar from "../../../../components/SupplierToolbar";
-import SupplierTabs from "../../../../components/SupplierTabs";
-import SupplierModal from "../../../../components/SupplierModal";
+import useSuppliers from "../../../hook/api/useSuppliers";
+import useSuppliersHandler from "../../../hook/handler/useSuppliersHandler";
+import SupplierColumn from "../../../../../components/SupplierColumn";
+import SupplierToolbar from "../../../../../components/SupplierToolbar";
+import SupplierTabs from "../../../../../components/SupplierTabs";
+import SupplierModal from "../../../../../components/SupplierModal";
 
 export default function Suppliers() {
   const [form] = Form.useForm();

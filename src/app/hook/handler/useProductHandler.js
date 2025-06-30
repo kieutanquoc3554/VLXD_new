@@ -29,7 +29,7 @@ export const useProductHandler = ({
   const confirmHideProduct = async () => {
     try {
       const response = await axios.put(
-        `${apiUrl}/api/products/hide/${productToHide}`,
+        `/api/products/${productToHide}/hide`,
         {}
       );
       message.success(response.data.message);

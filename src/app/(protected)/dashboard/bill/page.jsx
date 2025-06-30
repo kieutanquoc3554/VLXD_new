@@ -1,4 +1,4 @@
-import TabsBill from "../../../../components/TabsBill";
+import TabsBill from "../../../../../components/TabsBill";
 
 export default function BillPage() {
   return (

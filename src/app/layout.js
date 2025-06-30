@@ -1,9 +1,7 @@
-// app/layout.js (or layout.tsx)
-
 import "@ant-design/v5-patch-for-react-19";
 import "./globals.css";
-import { ConfigProvider } from "antd"; // ✅ Antd context
-import viVN from "antd/locale/vi_VN"; // ✅ optional: Vietnamese
+import { ConfigProvider } from "antd";
+import viVN from "antd/locale/vi_VN";
 import { ThemeProvider } from "./context/ThemeContext";
 
 export const metadata = {

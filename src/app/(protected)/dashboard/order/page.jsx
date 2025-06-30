@@ -4,11 +4,11 @@ import useOrder from "@/app/hook/api/useOrder";
 import { useOrderHandler } from "@/app/hook/handler/useOrderHandler";
 import { Button, Flex, Form } from "antd";
 import { useEffect, useState } from "react";
-import HeadingButtonOrder from "../../../../components/HeadingButtonOrder";
-import OrderTabs from "../../../../components/OrderTabs";
-import ColumnOrders from "../../../../components/ColumnOrders";
-import CreateOrderModal from "../../../../components/CreateOrderModal";
-import DetailsOrderModal from "../../../../components/DetailsOrderModal";
+import HeadingButtonOrder from "../../../../../components/HeadingButtonOrder";
+import OrderTabs from "../../../../../components/OrderTabs";
+import ColumnOrders from "../../../../../components/ColumnOrders";
+import CreateOrderModal from "../../../../../components/CreateOrderModal";
+import DetailsOrderModal from "../../../../../components/DetailsOrderModal";
 
 export default function OrderPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

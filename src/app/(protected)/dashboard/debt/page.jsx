@@ -7,10 +7,10 @@ import useDebtHandler from "@/app/hook/handler/useDebtHandler";
 import useDebtSearch from "@/app/hook/handler/useDebtSearch";
 import useDetailsDebtHandler from "@/app/hook/handler/useDetailsDebtHandler";
 import useSupplierDebtHandler from "@/app/hook/handler/useSupplierDebtHandler";
-import HeadingToolDebt from "../../../../components/HeadingToolDebt";
-import TabsDebt from "../../../../components/TabsDebt";
-import DebtModal from "../../../../components/DebtModal";
-import SupplierDebtModal from "../../../../components/SupplierDebtModal";
+import HeadingToolDebt from "../../../../../components/HeadingToolDebt";
+import TabsDebt from "../../../../../components/TabsDebt";
+import DebtModal from "../../../../../components/DebtModal";
+import SupplierDebtModal from "../../../../../components/SupplierDebtModal";
 
 export default function DebtPage() {
   const {
