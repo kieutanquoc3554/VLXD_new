@@ -84,3 +84,9 @@ export const decreaseStockQuantity = async (product_id, quantity) => {
     [quantity, product_id]
   );
 };
+
+export const restoreProduct = async (product_id) => {
+  await db.query(`UPDATE products SET isDeleted = 0 WHERE id = ?`, [
+    product_id,
+  ]);
+};

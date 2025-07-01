@@ -19,6 +19,7 @@ export default function ProductPage() {
     handleUpdate,
     handleHideProduct,
     handleDeleteProduct,
+    handleRestoreProduct,
     confirmHideProduct,
     fetchCategories,
     setConfirmVisible,
@@ -54,7 +55,8 @@ export default function ProductPage() {
     tabKey,
     handleUpdate,
     handleHideProduct,
-    handleDeleteProduct
+    handleDeleteProduct,
+    handleRestoreProduct
   );
 
   return (

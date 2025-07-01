@@ -46,7 +46,7 @@ export const useProductHandler = ({
     try {
       if (user.role === "Admin") {
         const response = await axios.put(
-          `${apiUrl}/api/products/delete/${id}`,
+          `${apiUrl}/api/products/${id}/delete`,
           {}
         );
         message.success(response.data.message);
@@ -56,6 +56,23 @@ export const useProductHandler = ({
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleRestoreProduct = async (id) => {
+    try {
+      const response = await axios.post(
+        `/api/products/${id}/delete/restore`,
+        {}
+      );
+      if (response.status === 200) {
+        message.success("Đã khôi phục thành công");
+        refetch();
+      } else {
+        message.error("Có lỗi xảy ra!");
+      }
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
@@ -71,6 +88,7 @@ export const useProductHandler = ({
     handleUpdate,
     handleHideProduct,
     handleDeleteProduct,
+    handleRestoreProduct,
     confirmHideProduct,
     fetchCategories,
     setConfirmVisible,
