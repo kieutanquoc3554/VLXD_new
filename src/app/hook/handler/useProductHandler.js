@@ -8,9 +8,9 @@ import debounce from "lodash/debounce";
 
 export const useProductHandler = ({
   user,
+  refetch,
   setOpenAddModal,
   setSelectedProduct,
-  refetch,
   setCategories,
 }) => {
   const [confirmVisible, setConfirmVisible] = useState(false);
@@ -77,7 +77,7 @@ export const useProductHandler = ({
 
   const fetchCategories = async () => {
     try {
-      const response = await productServices.fetchCategories();
+      const response = productServices.fetchCategories();
       setCategories(response.data);
     } catch (error) {
       console.log(error);

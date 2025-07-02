@@ -7,6 +7,8 @@ import useProductColumns from "../../../hook/ui/useProductColumns";
 import { useProductHandler } from "../../../hook/handler/useProductHandler";
 import AddProductFormModal from "../../../../../components/AddProductFormModal";
 import SearchButtonProduct from "../../../../../components/SearchButtonProduct";
+import FilterProduct from "../../../../../components/FilterProduct";
+import useCategory from "@/app/hook/api/useCategory";
 
 const { TabPane } = Tabs;
 
@@ -14,6 +16,7 @@ export default function ProductPage() {
   const { user } = useUser();
   const [tabKey, setTabKey] = useState("active");
   const { products, isLoading, refetch } = useProduct(tabKey);
+  const { setCategories } = useCategory();
   const [openAddModal, setOpenAddModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const {
@@ -33,6 +36,7 @@ export default function ProductPage() {
     refetch,
     setOpenAddModal,
     setSelectedProduct,
+    setCategories,
   });
 
   useEffect(() => {
@@ -75,6 +79,7 @@ export default function ProductPage() {
         <Button type="primary" onClick={() => handleAddModal()}>
           Thêm sản phẩm
         </Button>
+        <FilterProduct />
         <SearchButtonProduct onChange={handleChange} />
         {openAddModal && (
           <AddProductFormModal

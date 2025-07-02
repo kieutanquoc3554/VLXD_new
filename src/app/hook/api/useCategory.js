@@ -37,6 +37,7 @@ export default function useCategory() {
     }
   };
   return {
+    setCategories,
     searchTerm,
     filter,
     loading,
