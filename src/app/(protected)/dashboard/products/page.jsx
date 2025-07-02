@@ -1,15 +1,15 @@
 "use client";
-import { Button, Flex, Modal, Table, Tabs } from "antd";
+import { Modal, Table, Tabs } from "antd";
 import { useEffect, useState } from "react";
 import useUser from "../../../hook/api/useUser";
 import useProduct from "../../../hook/api/useProduct";
 import useProductColumns from "../../../hook/ui/useProductColumns";
 import { useProductHandler } from "../../../hook/handler/useProductHandler";
-import AddProductFormModal from "../../../../../components/AddProductFormModal";
-import SearchButtonProduct from "../../../../../components/SearchButtonProduct";
-import FilterProduct from "../../../../../components/FilterProduct";
 import useCategory from "@/app/hook/api/useCategory";
+import ActionButtonProduct from "../../../../../components/ActionButtonProduct";
+import tabTitles from "@/app/utils/tabTitles";
 
+const { getTitleTabs } = tabTitles();
 const { TabPane } = Tabs;
 
 export default function ProductPage() {
@@ -53,14 +53,6 @@ export default function ProductPage() {
     setTabKey(key);
   };
 
-  const tabTitles = {
-    active: "Danh sách sản phẩm",
-    hidden: "Danh sách sản phẩm đã ẩn",
-    deleted: "Danh sách sản phẩm đã xoá",
-  };
-
-  const getTitleTabs = (key) => tabTitles[key] || "Danh sách sản phẩm";
-
   const columns = useProductColumns(
     tabKey,
     handleUpdate,
@@ -72,27 +64,14 @@ export default function ProductPage() {
   return (
     <div style={{ padding: 20, background: "#fff", borderRadius: 8 }}>
       <h2>Quản lý sản phẩm</h2>
-      <Flex align="center" justify="space-between" gap={10}>
-        <Button type="primary" onClick={() => handleAddModal()}>
-          Thêm sản phẩm
-        </Button>
-        <Flex align="center" gap={10}>
-          <FilterProduct setFilterKeyword={setFilterKeyword} />
-          <SearchButtonProduct onChange={handleChange} />
-        </Flex>
-        {openAddModal && (
-          <AddProductFormModal
-            open={openAddModal}
-            title={selectedProduct ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
-            onClose={() => {
-              setOpenAddModal(false);
-              setSelectedProduct(null);
-              refetch();
-            }}
-            selectedProduct={selectedProduct}
-          />
-        )}
-      </Flex>
+      <ActionButtonProduct
+        openAddModal={openAddModal}
+        setOpenAddModal={setOpenAddModal}
+        selectedProduct={selectedProduct}
+        setFilterKeyword={setFilterKeyword}
+        handleChange={handleChange}
+        handleAddModal={handleAddModal}
+      />
       <Tabs activeKey={tabKey} onChange={handleChangeTabKey}>
         {["active", "hidden", "deleted"].map((key) => (
           <TabPane key={key} tab={getTitleTabs(key)}>
