@@ -22,6 +22,8 @@ export default function ProductPage() {
   const {
     results,
     keyword,
+    filterKeyword,
+    setFilterKeyword,
     handleUpdate,
     handleHideProduct,
     handleDeleteProduct,
@@ -70,17 +72,14 @@ export default function ProductPage() {
   return (
     <div style={{ padding: 20, background: "#fff", borderRadius: 8 }}>
       <h2>Quản lý sản phẩm</h2>
-      <Flex
-        align="center"
-        justify="space-between"
-        gap={10}
-        style={{ margin: "10px 0" }}
-      >
+      <Flex align="center" justify="space-between" gap={10}>
         <Button type="primary" onClick={() => handleAddModal()}>
           Thêm sản phẩm
         </Button>
-        <FilterProduct />
-        <SearchButtonProduct onChange={handleChange} />
+        <Flex align="center" gap={10}>
+          <FilterProduct setFilterKeyword={setFilterKeyword} />
+          <SearchButtonProduct onChange={handleChange} />
+        </Flex>
         {openAddModal && (
           <AddProductFormModal
             open={openAddModal}
@@ -100,7 +99,9 @@ export default function ProductPage() {
             <Table
               size="small"
               columns={columns}
-              dataSource={keyword ? results : products}
+              dataSource={
+                keyword ? results : filterKeyword ? results : products
+              }
               loading={isLoading}
               rowKey="id"
             />

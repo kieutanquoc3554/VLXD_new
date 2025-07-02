@@ -4,10 +4,9 @@ import {
   getCategoryById,
   updateCategory,
 } from "@/app/models/categoryModel";
-import { message } from "antd";
 
 export async function GET(req, { params }) {
-  const { id } = params;
+  const { id } = await params;
   try {
     const category = await getCategoryById(id);
     return NextResponse.json(category);

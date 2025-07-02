@@ -2,7 +2,7 @@ import useCategory from "@/app/hook/api/useCategory";
 import { Select } from "antd";
 import { useEffect, useState } from "react";
 
-const FilterProduct = () => {
+const FilterProduct = ({ setFilterKeyword }) => {
   const [options, setOptions] = useState([]);
   const { categories, fetchCategories } = useCategory();
 
@@ -20,6 +20,7 @@ const FilterProduct = () => {
 
   return (
     <Select
+      onChange={(value) => setFilterKeyword(value)}
       style={{ width: 300 }}
       options={options}
       placeholder="Chọn danh mục"

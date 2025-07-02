@@ -3,7 +3,7 @@
 import { message } from "antd";
 import axios from "axios";
 import * as productServices from "../../services/productServices";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import debounce from "lodash/debounce";
 
 export const useProductHandler = ({
@@ -17,6 +17,22 @@ export const useProductHandler = ({
   const [productToHide, setProductToHide] = useState(null);
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
+  const [filterKeyword, setFilterKeyword] = useState("");
+
+  useEffect(() => {
+    const fetchByCategory = async () => {
+      if (!filterKeyword) return;
+
+      try {
+        const res = await axios.get(`/api/products/filter?id=${filterKeyword}`);
+        setResults(res.data);
+      } catch (err) {
+        console.error("Lỗi lọc sản phẩm theo danh mục:", err);
+      }
+    };
+
+    fetchByCategory();
+  }, [filterKeyword]);
 
   const handleUpdate = (product) => {
     setOpenAddModal(true);
@@ -112,6 +128,8 @@ export const useProductHandler = ({
   return {
     results,
     keyword,
+    filterKeyword,
+    setFilterKeyword,
     handleUpdate,
     handleHideProduct,
     handleDeleteProduct,
