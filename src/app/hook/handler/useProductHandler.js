@@ -3,7 +3,8 @@
 import { message } from "antd";
 import axios from "axios";
 import * as productServices from "../../services/productServices";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import debounce from "lodash/debounce";
 
 export const useProductHandler = ({
   user,
@@ -12,9 +13,10 @@ export const useProductHandler = ({
   refetch,
   setCategories,
 }) => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [productToHide, setProductToHide] = useState(null);
+  const [keyword, setKeyword] = useState("");
+  const [results, setResults] = useState([]);
 
   const handleUpdate = (product) => {
     setOpenAddModal(true);
@@ -45,10 +47,7 @@ export const useProductHandler = ({
   const handleDeleteProduct = async (id) => {
     try {
       if (user.role === "Admin") {
-        const response = await axios.put(
-          `${apiUrl}/api/products/${id}/delete`,
-          {}
-        );
+        const response = await axios.put(`/api/products/${id}/delete`, {});
         message.success(response.data.message);
         refetch();
       } else {
@@ -84,11 +83,40 @@ export const useProductHandler = ({
       console.log(error);
     }
   };
+
+  const fetchSearchResults = async (query) => {
+    if (!query.trim()) return setResults([]);
+    try {
+      const res = await axios.get(
+        `/api/products/search?query=${encodeURIComponent(query)}`
+      );
+      setResults(res.data);
+    } catch (error) {
+      console.error("Lỗi tìm kiếm:", error);
+    }
+  };
+
+  const debouncedSearch = useCallback(
+    debounce((query) => {
+      fetchSearchResults(query);
+    }, 500),
+    []
+  );
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setKeyword(value);
+    debouncedSearch(value);
+  };
+
   return {
+    results,
+    keyword,
     handleUpdate,
     handleHideProduct,
     handleDeleteProduct,
     handleRestoreProduct,
+    handleChange,
     confirmHideProduct,
     fetchCategories,
     setConfirmVisible,

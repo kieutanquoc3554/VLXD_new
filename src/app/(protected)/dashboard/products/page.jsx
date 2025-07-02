@@ -1,11 +1,12 @@
 "use client";
-import { Button, Flex, Input, Modal, Select, Table, Tabs } from "antd";
+import { Button, Flex, Modal, Table, Tabs } from "antd";
 import { useEffect, useState } from "react";
 import useUser from "../../../hook/api/useUser";
 import useProduct from "../../../hook/api/useProduct";
 import useProductColumns from "../../../hook/ui/useProductColumns";
 import { useProductHandler } from "../../../hook/handler/useProductHandler";
 import AddProductFormModal from "../../../../../components/AddProductFormModal";
+import SearchButtonProduct from "../../../../../components/SearchButtonProduct";
 
 const { TabPane } = Tabs;
 
@@ -16,10 +17,13 @@ export default function ProductPage() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const {
+    results,
+    keyword,
     handleUpdate,
     handleHideProduct,
     handleDeleteProduct,
     handleRestoreProduct,
+    handleChange,
     confirmHideProduct,
     fetchCategories,
     setConfirmVisible,
@@ -71,6 +75,7 @@ export default function ProductPage() {
         <Button type="primary" onClick={() => handleAddModal()}>
           Thêm sản phẩm
         </Button>
+        <SearchButtonProduct onChange={handleChange} />
         {openAddModal && (
           <AddProductFormModal
             open={openAddModal}
@@ -90,7 +95,7 @@ export default function ProductPage() {
             <Table
               size="small"
               columns={columns}
-              dataSource={products}
+              dataSource={keyword ? results : products}
               loading={isLoading}
               rowKey="id"
             />

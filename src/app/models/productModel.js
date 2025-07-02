@@ -90,3 +90,17 @@ export const restoreProduct = async (product_id) => {
     product_id,
   ]);
 };
+
+export const searchProduct = async (value) => {
+  const query = `%${value}%`;
+  const [products] = await db.query(
+    `SELECT p.id, p.name, p.import_price, p.price, p.stock_quantity, 
+    p.unit, p.description, p.image_url, p.disabled, p.isDeleted, 
+    c.name AS category_name, s.name AS supplier_name 
+    FROM products p 
+    LEFT JOIN categories c ON p.category_id = c.id 
+    LEFT JOIN suppliers s ON p.supplier_id = s.id WHERE p.name LIKE ?`,
+    [query]
+  );
+  return products;
+};
