@@ -3,12 +3,12 @@ import useEmployee from "@/app/hook/api/useEmployee";
 import useEmployeeHandler from "@/app/hook/handler/useEmployeeHandler";
 import { Form } from "antd";
 import { useEffect, useState } from "react";
-import EmployeeToolbar from "../../../../components/EmployeeToolbar";
-import EmployeeTabs from "../../../../components/EmployeeTabs";
-import EmployeeColumn from "../../../../components/EmployeeColumn";
-import EmployeeModal from "../../../../components/EmployeeModal";
-import SuspendEmployeeModal from "../../../../components/SuspendEmployeeModal";
-import { RestoreEmployeeModal } from "../../../../components/RestoreEmployeeModal";
+import EmployeeToolbar from "../../../../../components/EmployeeToolbar";
+import EmployeeTabs from "../../../../../components/EmployeeTabs";
+import EmployeeColumn from "../../../../../components/EmployeeColumn";
+import EmployeeModal from "../../../../../components/EmployeeModal";
+import SuspendEmployeeModal from "../../../../../components/SuspendEmployeeModal";
+import { RestoreEmployeeModal } from "../../../../../components/RestoreEmployeeModal";
 
 export default function EmployeePage() {
   const [selectedFilterRole, setSelectedFilterRole] = useState(null);

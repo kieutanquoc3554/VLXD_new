@@ -4,10 +4,10 @@ import useInventory from "@/app/hook/api/useInventory";
 import useProduct from "@/app/hook/api/useProduct";
 import useSuppliers from "@/app/hook/api/useSuppliers";
 import { Button, Flex, Form, Input, InputNumber, Modal, Select } from "antd";
-import TabsInventory from "../../../../components/TabsInventory";
-import InventoryModal from "../../../../components/InventoryModal";
-import ColumnInventory from "../../../../components/ColumnInventory";
-import ColumnInventoryLogs from "../../../../components/ColumnInventoryLogs";
+import TabsInventory from "../../../../../components/TabsInventory";
+import InventoryModal from "../../../../../components/InventoryModal";
+import ColumnInventory from "../../../../../components/ColumnInventory";
+import ColumnInventoryLogs from "../../../../../components/ColumnInventoryLogs";
 const { Search } = Input;
 
 export default function InventoryPage() {

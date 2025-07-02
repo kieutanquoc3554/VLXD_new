@@ -7,7 +7,8 @@ const useProductColumns = (
   tabKey,
   handleUpdate,
   handleHideProduct,
-  handleDeleteProduct
+  handleDeleteProduct,
+  handleRestoreProduct
 ) => {
   return [
     {

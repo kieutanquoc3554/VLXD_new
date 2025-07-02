@@ -90,7 +90,7 @@ export default function AddProductFormModal({
     formData.append("image", file);
     setUploading(true);
     try {
-      const response = await axios.post(`${apiUrl}/upload`, formData, {
+      const response = await axios.post(`/api/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       if (response.data.success) {

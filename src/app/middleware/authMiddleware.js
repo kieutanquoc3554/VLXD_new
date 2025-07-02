@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
 import { getSessionByToken } from "@/app/models/employeeModel";
+import { cookies } from "next/headers";
 
 export async function checkAuth(req, res) {
-  const token = req.cookies?.token;
+  const cookieStore = cookies();
+  const token = (await cookieStore).get("token")?.value;
   if (!token) {
     return { ok: false, status: 401, message: "Bạn chưa đăng nhập!" };
   }
@@ -16,6 +18,7 @@ export async function checkAuth(req, res) {
         token,
       };
     }
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return { ok: true, user: decoded };
   } catch (error) {
