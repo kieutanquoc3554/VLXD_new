@@ -1,6 +1,6 @@
 import db from "../lib/db";
 
-exports.getAllInventory = async () => {
+export const getAllInventory = async () => {
   const sql = `SELECT inventory.*, products.name AS product_name, categories.name AS product_category 
   FROM inventory 
   JOIN products ON inventory.product_id = products.id 
@@ -10,20 +10,20 @@ exports.getAllInventory = async () => {
   return rows;
 };
 
-exports.getById = async (id) => {
+export const getById = async (id) => {
   const sql = "SELECT * FROM inventory WHERE id = ?";
   const [rows] = await db.query(sql, [id]);
   return rows;
 };
 
-exports.getProductById = async (id) => {
+export const getProductById = async (id) => {
   const sql =
     "SELECT i.*, p.price, p.name FROM inventory i JOIN products p ON i.product_id = p.id WHERE product_id = ?";
   const [rows] = await db.query(sql, [id]);
   return rows[0];
 };
 
-exports.create = async (data, userId) => {
+export const create = async (data, userId) => {
   const { note = "Nhập kho", items, suppliers_id, paid_amount } = data;
   const connection = await db.getConnection();
   try {
@@ -109,7 +109,7 @@ exports.create = async (data, userId) => {
   }
 };
 
-exports.getTotalQuantityByProductId = async (product_id) => {
+export const getTotalQuantityByProductId = async (product_id) => {
   const [rows] = await db.query(
     `SELECT SUM(quantity) AS total FROM inventory WHERE product_id = ?`,
     [product_id]
@@ -117,7 +117,7 @@ exports.getTotalQuantityByProductId = async (product_id) => {
   return rows[0].total || 0;
 };
 
-exports.update = async (id, data, userId) => {
+export const update = async (id, data, userId) => {
   const { quantity, warehouse_location } = data;
   const [rows] = await db.query(`SELECT * FROM inventory WHERE id = ?`, [id]);
   if (rows.length === 0) return;
@@ -142,12 +142,12 @@ exports.update = async (id, data, userId) => {
   }
 };
 
-exports.delete = async (id) => {
+export const deleteInv = async (id) => {
   const sql = "DELETE FROM inventory WHERE id = ?";
   await db.query(sql, [id]);
 };
 
-exports.search = async (keyword) => {
+export const search = async (keyword) => {
   const sql = `SELECT inventory.*, products.name AS product_name 
   FROM inventory 
   JOIN products ON inventory.product_id = products.id 
@@ -156,7 +156,7 @@ exports.search = async (keyword) => {
   return rows;
 };
 
-exports.getInventoryLogs = async () => {
+export const getInventoryLogs = async () => {
   const sql = `SELECT i.*, p.name AS product_name, e.name AS employee_name 
   FROM inventory_logs i 
   JOIN products p ON i.product_id = p.id 
@@ -166,7 +166,7 @@ exports.getInventoryLogs = async () => {
   return rows;
 };
 
-exports.createStockCheck = async (checks, userId) => {
+export const createStockCheck = async (checks, userId) => {
   const [userRows] = await db.query(`SELECT name FROM employees WHERE id = ?`, [
     userId,
   ]);
@@ -210,7 +210,7 @@ exports.createStockCheck = async (checks, userId) => {
   }
 };
 
-exports.getAllStockCheckReports = async () => {
+export const getAllStockCheckReports = async () => {
   const sql = `SELECT MIN(r.id) AS report_id, r.created_at, r.created_by, r.note AS note_report,
       e.name AS employee_name, COUNT(*) AS total_products
       FROM stock_check_reports r
@@ -222,7 +222,7 @@ exports.getAllStockCheckReports = async () => {
   return rows;
 };
 
-exports.getStockCheckReportsDetail = async (created_time, created_by) => {
+export const getStockCheckReportsDetail = async (created_time, created_by) => {
   const date = new Date(created_time);
   const vnDate = new Date(date.getTime() + 7 * 60 * 60 * 1000);
   const mysqlDateTime = vnDate.toISOString().slice(0, 19).replace("T", " ");
@@ -236,7 +236,7 @@ exports.getStockCheckReportsDetail = async (created_time, created_by) => {
   return rows;
 };
 
-exports.getAllImportSlips = async () => {
+export const getAllImportSlips = async () => {
   const sql = `SELECT islip.id, islip.note, islip.created_at, islip.total_price, s.name AS supplier_name, e.name AS employee_name 
               FROM import_slips islip 
               LEFT JOIN suppliers s ON s.id = islip.suppliers_id
