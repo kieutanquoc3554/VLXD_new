@@ -18,7 +18,7 @@ export default function useInventory() {
     try {
       setIsLoading(true);
       const url = keyword
-        ? `${apiUrl}/api/inventory/search/keyword?q=${keyword}`
+        ? `${apiUrl}/api/inventory/search?q=${keyword}`
         : `${apiUrl}/api/inventory`;
       const response = await axios.get(url);
       setInventory(response.data);
@@ -32,7 +32,7 @@ export default function useInventory() {
   const fetchInventoryLogs = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`${apiUrl}/api/inventory/history/logs`);
+      const response = await axios.get(`${apiUrl}/api/inventory/history`);
       setInventoryLogs(response.data);
     } catch (error) {
       message.error("Lỗi khi tải dữ liệu lịch sử kho hàng", error);

@@ -28,14 +28,14 @@ const ColumnInventory = (handleEditModal) => {
       dataIndex: "warehouse_location",
       key: "warehouse_location",
     },
-    {
-      title: "Hành động",
-      render: (_, record) => (
-        <Button type="primary" onClick={() => handleEditModal(record)}>
-          Cập nhật
-        </Button>
-      ),
-    },
+    // {
+    //   title: "Hành động",
+    //   render: (_, record) => (
+    //     <Button type="primary" onClick={() => handleEditModal(record)}>
+    //       Cập nhật
+    //     </Button>
+    //   ),
+    // },
   ];
 };
 
