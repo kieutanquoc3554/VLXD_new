@@ -51,7 +51,7 @@ export const useOrderHandler = (fetchOrders) => {
     setIsSearched(true);
     try {
       const response = await axios.get(
-        `${apiUrl}/api/orders/utils/search?query=${searchTerm}`,
+        `${apiUrl}/api/orders/search?searchTerm=${searchTerm}&order_date=${orderDate}`,
         {
           withCredentials: true,
         }
@@ -72,7 +72,7 @@ export const useOrderHandler = (fetchOrders) => {
         return;
       }
       const response = await axios.get(
-        `${apiUrl}/api/orders/utils/search?query=${orderDate}`,
+        `${apiUrl}/api/orders/search?searchTerm=${searchTerm}&order_date=${orderDate}`,
         {
           withCredentials: true,
         }

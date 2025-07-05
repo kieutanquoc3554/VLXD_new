@@ -43,6 +43,8 @@ const ColumnOrders = ({
           if (response.status === 200) {
             message.success(response.data.message);
             await fetchOrders();
+          } else if (response.status === 400) {
+            message.error(response.data.message);
           }
         } catch (error) {
           console.log(error);

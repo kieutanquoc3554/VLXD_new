@@ -119,17 +119,22 @@ export const updateDebtByOrderId = async (amount, id) => {
   return { message: "Cập nhật công nợ khách hàng thành công!" };
 };
 
-export const searchOrder = async (value) => {
-  const likeQuery = `%${value}%`;
-  const [orders] = await db.query(
-    `SELECT o.*, c.name AS customer_name
+export const searchOrder = async ({ searchTerm = "", orderDate = "" }) => {
+  const likeQuery = `%${searchTerm}%`;
+  let query = `SELECT o.*, c.name AS customer_name
      FROM orders o
      JOIN customer c ON o.customer_id = c.id
-     WHERE c.name LIKE ?
-     OR o.id LIKE ?
-     OR DATE(o.order_date) = ?
-     ORDER BY o.order_date DESC`,
-    [likeQuery, likeQuery, value]
-  );
+     WHERE 1=1`;
+  const params = [];
+  if (searchTerm) {
+    query += ` AND (c.name LIKE ? OR o.id LIKE ?)`;
+    params.push(likeQuery, likeQuery);
+  }
+  if (orderDate) {
+    query += ` AND DATE(o.order_date) = ?`;
+    params.push(orderDate);
+  }
+  query += ` ORDER BY o.order_date DESC`;
+  const [orders] = await db.query(query, params);
   return orders;
 };

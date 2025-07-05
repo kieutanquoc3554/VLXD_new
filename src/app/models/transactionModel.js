@@ -1,6 +1,6 @@
 import db from "../lib/db";
 
-exports.createTransaction = async ({
+export const createTransaction = async ({
   product_id,
   transaction_type,
   quantity,
