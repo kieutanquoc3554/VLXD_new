@@ -11,6 +11,7 @@ import {
   InboxOutlined,
   FormOutlined,
 } from "@ant-design/icons";
+import { FcStatistics } from "react-icons/fc";
 import { useContext, useState } from "react";
 import Link from "next/link";
 import { ThemeContext } from "../src/app/context/ThemeContext";
@@ -89,8 +90,9 @@ const Sidebar = () => {
       label: "Báo cáo & Thống kê",
       children: [
         {
+          icon: <FcStatistics />,
           key: "10",
-          label: "Doanh thu", // chưa gắn route
+          label: <Link href="/dashboard/statistic">Thống kê</Link>,
         },
         {
           key: "11",
