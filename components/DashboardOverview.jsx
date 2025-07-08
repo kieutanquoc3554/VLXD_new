@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Space, Typography, DatePicker, Row, Col, Card } from "antd";
 import {
   Bar,
@@ -20,12 +20,18 @@ import {
   InboxOutlined,
   CreditCardOutlined,
 } from "@ant-design/icons";
+import useStatistic from "@/app/hook/api/useStatistic";
 const { RangePicker } = DatePicker;
 const { Title } = Typography;
 
 const DashboardOverview = () => {
   const [dateRange, setDateRange] = useState([]);
+  const { statisticOverview, fetchStatisticOverview } = useStatistic();
   const COLORS = ["#0088FE", "#FF8042"];
+
+  useEffect(() => {
+    fetchStatisticOverview();
+  }, []);
 
   const debtData = [
     { name: "Khách hàng", value: 13500000 },
@@ -44,37 +50,37 @@ const DashboardOverview = () => {
   const statCards = [
     {
       title: "Tổng doanh thu",
-      value: `${formatCurrency(120000000)}`,
+      value: `${formatCurrency(statisticOverview.total_revenue || 0)}`,
       icon: <MoneyCollectOutlined style={{ fontSize: 24, color: "#52c41a" }} />,
       bg: "#f6ffed",
       border: "#b7eb8f",
     },
     {
       title: "Tổng lợi nhuận",
-      value: `${formatCurrency(35000000)}`,
+      value: `${formatCurrency(statisticOverview.actual_revenue || 0)}`,
       icon: <RiseOutlined style={{ fontSize: 24, color: "#1890ff" }} />,
       bg: "#e6f7ff",
       border: "#91d5ff",
     },
     {
       title: "Giá trị tồn kho",
-      value: `${formatCurrency(58000000)}`,
+      value: `${formatCurrency(statisticOverview.total_inventory || 0)}`,
       icon: <InboxOutlined style={{ fontSize: 24, color: "#faad14" }} />,
       bg: "#fffbe6",
       border: "#ffe58f",
     },
     {
       title: "Tổng công nợ khách hàng",
-      value: `${formatCurrency(20700000)}`,
+      value: `${formatCurrency(statisticOverview.customer_debt || 0)}`,
       icon: <CreditCardOutlined style={{ fontSize: 24, color: "#f5222d" }} />,
       bg: "#fff1f0",
       border: "#ffa39e",
     },
     {
       title: "Tổng công nợ (NCC)",
-      value: `${formatCurrency(20700000)}`,
+      value: `${formatCurrency(statisticOverview.supplier_debt || 0)}`,
       icon: <CreditCardOutlined style={{ fontSize: 24, color: "#f5222d" }} />,
-      bg: "#fff1f0",
+      bg: "#FFF0F5",
       border: "#ffa39e",
     },
   ];

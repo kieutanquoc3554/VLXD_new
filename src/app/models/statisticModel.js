@@ -9,8 +9,19 @@ export const getOverviewStatistic = async () => {
                         WHERE o.status = "Completed";`;
   const totalInventorySQL = `SELECT SUM( i.quantity * p.import_price) AS total_inventory
                         FROM inventory i
-                        JOIN products p ON i.product_id = p.id WHERE p.isDeleted = TRUE;`;
+                        JOIN products p ON i.product_id = p.id WHERE p.isDeleted = FALSE;`;
+  const customerDebtSQL = `SELECT SUM(o.remaining_amount) AS customer_debt FROM orders o
+                        WHERE o.remaining_amount > 0;`;
+  const supplierDebtSQL = `SELECT SUM(remaining_amount) AS supplier_debt FROM supplier_transactions
+                        WHERE remaining_amount > 0;`;
   const [revenueOverview] = await db.query(revenueSQL);
   const [totalInventory] = await db.query(totalInventorySQL);
-  return { ...revenueOverview[0], ...totalInventory[0] };
+  const [customerDebt] = await db.query(customerDebtSQL);
+  const [supplierDebt] = await db.query(supplierDebtSQL);
+  return {
+    ...revenueOverview[0],
+    ...totalInventory[0],
+    ...customerDebt[0],
+    ...supplierDebt[0],
+  };
 };
