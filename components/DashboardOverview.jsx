@@ -64,7 +64,14 @@ const DashboardOverview = () => {
       border: "#ffe58f",
     },
     {
-      title: "Tổng công nợ",
+      title: "Tổng công nợ khách hàng",
+      value: `${formatCurrency(20700000)}`,
+      icon: <CreditCardOutlined style={{ fontSize: 24, color: "#f5222d" }} />,
+      bg: "#fff1f0",
+      border: "#ffa39e",
+    },
+    {
+      title: "Tổng công nợ (NCC)",
       value: `${formatCurrency(20700000)}`,
       icon: <CreditCardOutlined style={{ fontSize: 24, color: "#f5222d" }} />,
       bg: "#fff1f0",
@@ -95,6 +102,7 @@ const DashboardOverview = () => {
             <Card
               variant="borderless"
               style={{
+                marginBottom: "10px",
                 backgroundColor: card.bg,
                 borderLeft: `6px solid ${card.border}`,
                 boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
