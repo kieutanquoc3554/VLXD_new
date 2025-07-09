@@ -27,6 +27,8 @@ const { Title } = Typography;
 const DashboardOverview = () => {
   const [dateRange, setDateRange] = useState([]);
   const [revenueByMonth, setRevenueByMonth] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const {
     statisticOverview,
     statisticByMonthOverview,
@@ -71,6 +73,10 @@ const DashboardOverview = () => {
   }, [statisticByMonthOverview]);
 
   useEffect(() => {
+    if (dateRange && dateRange.length === 2) {
+      setStartDate(dateRange[0]);
+      setEndDate(dateRange[1]);
+    }
     console.log(dateRange);
   }, [dateRange]);
 
@@ -127,7 +133,18 @@ const DashboardOverview = () => {
     <div>
       <Space style={{ marginBottom: 16 }}>
         <span>Chọn khoảng thời gian: </span>
-        <RangePicker onChange={(date) => setDateRange(dates)} />
+        <RangePicker
+          onChange={(dates) => {
+            if (dates && dates.length === 2) {
+              const start = dates[0]
+                .startOf("day")
+                .format("YYYY-MM-DD HH:mm:ss");
+              const end = dates[1].endOf("day").format("YYYY-MM-DD HH:mm:ss");
+              const range = [start, end];
+              setDateRange(range);
+            }
+          }}
+        />
       </Space>
       <Row gutter={16}>
         {statCards.map((card, index) => (
@@ -165,7 +182,7 @@ const DashboardOverview = () => {
                 <YAxis tickFormatter={(value) => formatCompactNumber(value)} />
                 <Tooltip formatter={(value) => `${formatCurrency(value)}`} />
                 <Legend />
-                <Bar dataKey="revenue" fill="#1890ff" />
+                <Bar name="Doanh thu" dataKey="revenue" fill="#1890ff" />
               </BarChart>
             </ResponsiveContainer>
           </Card>
