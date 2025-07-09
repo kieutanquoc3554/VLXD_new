@@ -6,7 +6,7 @@ import NavigationBar from "../../../../components/NavigationBar";
 
 const { Content } = Layout;
 
-export default async function DashboardLayout({ children }) {
+export default function DashboardLayout({ children }) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sidebar />

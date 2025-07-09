@@ -26,26 +26,53 @@ const { Title } = Typography;
 
 const DashboardOverview = () => {
   const [dateRange, setDateRange] = useState([]);
-  const { statisticOverview, fetchStatisticOverview } = useStatistic();
+  const [revenueByMonth, setRevenueByMonth] = useState([]);
+  const {
+    statisticOverview,
+    statisticByMonthOverview,
+    fetchStatisticOverview,
+    fetchStatisticByMonthOverview,
+  } = useStatistic();
   const COLORS = ["#0088FE", "#FF8042"];
+
+  const monthFY = Array.from({ length: 12 }, (_, i) => ({
+    month: `Th${i + 1}`,
+    revenue: 0,
+  }));
+
+  const debtData = [
+    { name: "Khách hàng", value: Number(statisticOverview.customer_debt) },
+    { name: "Nhà cung cấp", value: Number(statisticOverview.supplier_debt) },
+  ];
 
   useEffect(() => {
     fetchStatisticOverview();
+    fetchStatisticByMonthOverview();
   }, []);
 
-  const debtData = [
-    { name: "Khách hàng", value: 13500000 },
-    { name: "Nhà cung cấp", value: 7200000 },
-  ];
+  useEffect(() => {
+    if (statisticByMonthOverview) {
+      const parsedData = Object.values(statisticByMonthOverview).map(
+        (item) => ({
+          month: Number(item.month),
+          revenue: Number(item.total_amount),
+        })
+      );
+      const actualData = monthFY.map((monthData, index) => {
+        const found = parsedData.find((d) => d.month === index + 1);
+        return {
+          month: monthData.month,
+          revenue: found ? found.revenue : 0,
+        };
+      });
 
-  const revenueByMonth = [
-    { month: "Th1", revenue: 10000000 },
-    { month: "Th2", revenue: 15000000 },
-    { month: "Th3", revenue: 12000000 },
-    { month: "Th4", revenue: 17000000 },
-    { month: "Th5", revenue: 20000000 },
-    { month: "Th6", revenue: 18000000 },
-  ];
+      setRevenueByMonth(actualData);
+    }
+  }, [statisticByMonthOverview]);
+
+  useEffect(() => {
+    console.log(dateRange);
+  }, [dateRange]);
 
   const statCards = [
     {
@@ -100,7 +127,7 @@ const DashboardOverview = () => {
     <div>
       <Space style={{ marginBottom: 16 }}>
         <span>Chọn khoảng thời gian: </span>
-        <RangePicker onChange={(dates) => setDateRange(dates)}></RangePicker>
+        <RangePicker onChange={(date) => setDateRange(dates)} />
       </Space>
       <Row gutter={16}>
         {statCards.map((card, index) => (

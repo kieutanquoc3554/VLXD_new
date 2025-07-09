@@ -25,3 +25,10 @@ export const getOverviewStatistic = async () => {
     ...supplierDebt[0],
   };
 };
+
+export const getOverviewRevenueByMonth = async () => {
+  const statisticSQL = `SELECT MONTH(o.order_date) AS month, SUM(o.paid_amount) AS total_amount 
+                    FROM orders o GROUP BY MONTH(o.order_date);`;
+  const [statistic] = await db.query(statisticSQL);
+  return { ...statistic };
+};

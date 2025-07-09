@@ -1,3 +1,4 @@
+"use client";
 import { Menu, Layout, Typography, Button, Switch, message } from "antd";
 import { ThemeContext } from "../src/app/context/ThemeContext";
 import { useContext, useEffect, useState } from "react";
