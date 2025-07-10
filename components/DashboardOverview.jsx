@@ -32,8 +32,10 @@ const DashboardOverview = () => {
   const {
     statisticOverview,
     statisticByMonthOverview,
+    statisticByDateOverview,
     fetchStatisticOverview,
     fetchStatisticByMonthOverview,
+    fetchStatisticByDateOverview,
   } = useStatistic();
   const COLORS = ["#0088FE", "#FF8042"];
 
@@ -74,44 +76,65 @@ const DashboardOverview = () => {
 
   useEffect(() => {
     if (dateRange && dateRange.length === 2) {
-      setStartDate(dateRange[0]);
-      setEndDate(dateRange[1]);
+      const [start, end] = dateRange;
+      setStartDate(start);
+      setEndDate(end);
+      fetchStatisticByDateOverview(start, end);
     }
-    console.log(dateRange);
   }, [dateRange]);
 
   const statCards = [
     {
       title: "Tổng doanh thu",
-      value: `${formatCurrency(statisticOverview.total_revenue || 0)}`,
+      value: `${formatCurrency(
+        statisticByDateOverview.total_revenue != null
+          ? statisticByDateOverview.total_revenue
+          : statisticOverview.total_revenue || 0
+      )}`,
       icon: <MoneyCollectOutlined style={{ fontSize: 24, color: "#52c41a" }} />,
       bg: "#f6ffed",
       border: "#b7eb8f",
     },
     {
       title: "Tổng lợi nhuận",
-      value: `${formatCurrency(statisticOverview.actual_revenue || 0)}`,
+      value: `${formatCurrency(
+        statisticByDateOverview.actual_revenue != null
+          ? statisticByDateOverview.actual_revenue
+          : statisticOverview.actual_revenue || 0
+      )}`,
       icon: <RiseOutlined style={{ fontSize: 24, color: "#1890ff" }} />,
       bg: "#e6f7ff",
       border: "#91d5ff",
     },
     {
       title: "Giá trị tồn kho",
-      value: `${formatCurrency(statisticOverview.total_inventory || 0)}`,
+      value: `${formatCurrency(
+        statisticByDateOverview.total_inventory != null
+          ? statisticByDateOverview.total_inventory
+          : statisticOverview.total_inventory || 0
+      )}`,
       icon: <InboxOutlined style={{ fontSize: 24, color: "#faad14" }} />,
       bg: "#fffbe6",
       border: "#ffe58f",
     },
     {
       title: "Tổng công nợ khách hàng",
-      value: `${formatCurrency(statisticOverview.customer_debt || 0)}`,
+      value: `${formatCurrency(
+        statisticByDateOverview.customer_debt != null
+          ? statisticByDateOverview.customer_debt
+          : statisticOverview.customer_debt || 0
+      )}`,
       icon: <CreditCardOutlined style={{ fontSize: 24, color: "#f5222d" }} />,
       bg: "#fff1f0",
       border: "#ffa39e",
     },
     {
       title: "Tổng công nợ (NCC)",
-      value: `${formatCurrency(statisticOverview.supplier_debt || 0)}`,
+      value: `${formatCurrency(
+        statisticByDateOverview.supplier_debt != null
+          ? statisticByDateOverview.supplier_debt
+          : statisticOverview.supplier_debt || 0
+      )}`,
       icon: <CreditCardOutlined style={{ fontSize: 24, color: "#f5222d" }} />,
       bg: "#FFF0F5",
       border: "#ffa39e",

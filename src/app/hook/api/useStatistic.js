@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function useStatistic() {
   const [statisticOverview, setStatisticOverview] = useState([]);
   const [statisticByMonthOverview, setStatisticByMonthOverview] = useState([]);
+  const [statisticByDateOverview, setStatisticByDateOverview] = useState([]);
 
   const fetchStatisticOverview = async () => {
     try {
@@ -28,10 +29,25 @@ export default function useStatistic() {
       message.error(`Có lỗi xảy ra - ${error?.message}`);
     }
   };
+
+  const fetchStatisticByDateOverview = async (startDate, endDate) => {
+    try {
+      const statistic = await axios.get(
+        `http://localhost:3000/api/statistic/overview/bydate?startDate=${startDate}&endDate=${endDate}`
+      );
+      if (statistic) {
+        setStatisticByDateOverview(statistic.data);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
   return {
     statisticOverview,
     statisticByMonthOverview,
+    statisticByDateOverview,
     fetchStatisticOverview,
     fetchStatisticByMonthOverview,
+    fetchStatisticByDateOverview,
   };
 }
