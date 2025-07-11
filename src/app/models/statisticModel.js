@@ -1,12 +1,14 @@
 import db from "../lib/db";
 
 export const getOverviewStatistic = async () => {
-  const revenueSQL = `SELECT SUM(oi.quantity * oi.price) AS total_revenue,
-                        SUM((oi.price * oi.quantity) - (p.import_price * oi.quantity)) AS actual_revenue
+  const revenueSQL = `
+    SELECT SUM(DISTINCT o.total_price) AS total_revenue, SUM(DISTINCT o.paid_amount) AS actual_revenue,
+                        SUM((oi.price * oi.quantity) - (p.import_price * oi.quantity)) AS profit
                         FROM orders o
                         JOIN order_items oi ON oi.order_id = o.id
                         JOIN products p ON oi.product_id = p.id
-                        WHERE o.status = "Completed";`;
+                        WHERE o.status = "Completed";
+  `;
   const totalInventorySQL = `SELECT SUM( i.quantity * p.import_price) AS total_inventory
                         FROM inventory i
                         JOIN products p ON i.product_id = p.id WHERE p.isDeleted = FALSE;`;
@@ -27,13 +29,15 @@ export const getOverviewStatistic = async () => {
 };
 
 export const getOverviewRevenueByDate = async (startDate, endDate) => {
-  const revenueSQL = `SELECT SUM(DISTINCT o.paid_amount) AS total_revenue,
-                        SUM((oi.price * oi.quantity) - (p.import_price * oi.quantity)) AS actual_revenue
+  const revenueSQL = `SELECT SUM(DISTINCT o.total_price) AS total_revenue, 
+              SUM(DISTINCT o.paid_amount) AS actual_revenue,
+                        SUM((oi.price * oi.quantity) - (p.import_price * oi.quantity)) AS profit
                         FROM orders o
                         JOIN order_items oi ON oi.order_id = o.id
                         JOIN products p ON oi.product_id = p.id
                         WHERE o.status = "Completed"
                         AND o.order_date BETWEEN ? AND ?;`;
+  const actual_profit = ``;
   const totalInventorySQL = `SELECT SUM( i.quantity * p.import_price) AS total_inventory
                         FROM inventory i
                         JOIN products p ON i.product_id = p.id WHERE p.isDeleted = FALSE

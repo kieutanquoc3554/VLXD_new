@@ -85,7 +85,7 @@ const DashboardOverview = () => {
 
   const statCards = [
     {
-      title: "Tổng doanh thu",
+      title: "Doanh thu (theo đơn hàng)",
       value: `${formatCurrency(
         statisticByDateOverview.total_revenue != null
           ? statisticByDateOverview.total_revenue
@@ -96,11 +96,22 @@ const DashboardOverview = () => {
       border: "#b7eb8f",
     },
     {
-      title: "Tổng lợi nhuận",
+      title: "Doanh thu (thực tế)",
       value: `${formatCurrency(
         statisticByDateOverview.actual_revenue != null
           ? statisticByDateOverview.actual_revenue
           : statisticOverview.actual_revenue || 0
+      )}`,
+      icon: <MoneyCollectOutlined style={{ fontSize: 24, color: "#52c41a" }} />,
+      bg: "#f6ffed",
+      border: "#b7eb8f",
+    },
+    {
+      title: "Tổng lợi nhuận",
+      value: `${formatCurrency(
+        statisticByDateOverview.profit != null
+          ? statisticByDateOverview.profit
+          : statisticOverview.profit || 0
       )}`,
       icon: <RiseOutlined style={{ fontSize: 24, color: "#1890ff" }} />,
       bg: "#e6f7ff",
