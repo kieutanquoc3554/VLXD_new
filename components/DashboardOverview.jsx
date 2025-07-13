@@ -85,7 +85,7 @@ const DashboardOverview = () => {
 
   const statCards = [
     {
-      title: "Doanh thu (theo đơn hàng)",
+      title: "Doanh thu dự kiến",
       value: `${formatCurrency(
         statisticByDateOverview.total_revenue != null
           ? statisticByDateOverview.total_revenue
@@ -96,15 +96,26 @@ const DashboardOverview = () => {
       border: "#b7eb8f",
     },
     {
-      title: "Doanh thu (thực tế)",
+      title: "Doanh thu thực tế",
       value: `${formatCurrency(
         statisticByDateOverview.actual_revenue != null
           ? statisticByDateOverview.actual_revenue
           : statisticOverview.actual_revenue || 0
       )}`,
-      icon: <MoneyCollectOutlined style={{ fontSize: 24, color: "#52c41a" }} />,
-      bg: "#f6ffed",
-      border: "#b7eb8f",
+      icon: <MoneyCollectOutlined style={{ fontSize: 24, color: "#08979c" }} />,
+      bg: "#e6fffb",
+      border: "#87e8de",
+    },
+    {
+      title: "Giá vốn thực tế",
+      value: `${formatCurrency(
+        statisticByDateOverview.actual_cost != null
+          ? statisticByDateOverview.actual_cost
+          : statisticOverview.actual_cost || 0
+      )}`,
+      icon: <MoneyCollectOutlined style={{ fontSize: 24, color: "#2f54eb" }} />,
+      bg: "#f0f5ff",
+      border: "#adc6ff",
     },
     {
       title: "Tổng lợi nhuận",
@@ -113,9 +124,9 @@ const DashboardOverview = () => {
           ? statisticByDateOverview.profit
           : statisticOverview.profit || 0
       )}`,
-      icon: <RiseOutlined style={{ fontSize: 24, color: "#1890ff" }} />,
-      bg: "#e6f7ff",
-      border: "#91d5ff",
+      icon: <RiseOutlined style={{ fontSize: 24, color: "#fa8c16" }} />,
+      bg: "#fff7e6",
+      border: "#ffd591",
     },
     {
       title: "Giá trị tồn kho",
@@ -129,7 +140,7 @@ const DashboardOverview = () => {
       border: "#ffe58f",
     },
     {
-      title: "Tổng công nợ khách hàng",
+      title: "Công nợ khách hàng",
       value: `${formatCurrency(
         statisticByDateOverview.customer_debt != null
           ? statisticByDateOverview.customer_debt
@@ -146,9 +157,9 @@ const DashboardOverview = () => {
           ? statisticByDateOverview.supplier_debt
           : statisticOverview.supplier_debt || 0
       )}`,
-      icon: <CreditCardOutlined style={{ fontSize: 24, color: "#f5222d" }} />,
-      bg: "#FFF0F5",
-      border: "#ffa39e",
+      icon: <CreditCardOutlined style={{ fontSize: 24, color: "#722ed1" }} />,
+      bg: "#f9f0ff",
+      border: "#d3adf7",
     },
   ];
 
