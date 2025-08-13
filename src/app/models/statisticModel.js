@@ -136,3 +136,25 @@ export const getOverviewRevenueByMonth = async () => {
   const [statistic] = await db.query(statisticSQL);
   return { ...statistic };
 };
+
+export const getBestSellingProduct = async () => {
+  const statisticSQL = `SELECT p.image_url AS image, p.name, SUM(oi.quantity) AS quantitySold, SUM(oi.price * oi.quantity) AS revenue
+                        FROM order_items oi
+                        JOIN orders o ON o.id = oi.order_id
+                        JOIN products p ON oi.product_id = p.id
+                        WHERE o.status = "Completed" AND o.remaining_amount = 0
+                        GROUP BY oi.product_id
+                        ORDER BY revenue DESC
+                        LIMIT 5;`;
+  const lessSellingProduct = `SELECT p.id, p.name, p.image_url AS image, COALESCE(SUM(oi.quantity), 0) AS quantitySold, COALESCE(SUM(oi.quantity * oi.price), 0) AS revenue
+                        FROM products p
+                        LEFT JOIN order_items oi ON oi.product_id = p.id
+                        LEFT JOIN orders o ON o.id = oi.order_id AND o.status = 'Completed' AND o.remaining_amount = 0
+                        WHERE p.disabled = FALSE AND p.isDeleted = FALSE
+                        GROUP BY p.id
+                        HAVING quantitySold <= 5 OR revenue < 1000000
+                        ORDER BY quantitySold ASC;`;
+  const [statistic] = await db.query(statisticSQL);
+  const [lessProduct] = await db.query(lessSellingProduct);
+  return { bestSelling: statistic, lessSelling: lessProduct };
+};

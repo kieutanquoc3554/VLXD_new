@@ -50,7 +50,7 @@ const CreateOrderForm = ({ onSuccess }) => {
           price,
         })),
         payment_method: paymentMethod,
-        paid_amount: paid_amount || total,
+        paid_amount: paid_amount || 0,
       };
       await axios.post(`${apiUrl}/api/orders`, payload, {
         withCredentials: true,

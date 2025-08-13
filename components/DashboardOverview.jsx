@@ -1,6 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Space, Typography, DatePicker, Row, Col, Card } from "antd";
+import {
+  Space,
+  Typography,
+  DatePicker,
+  Row,
+  Col,
+  Card,
+  Tooltip,
+  Flex,
+  List,
+} from "antd";
 import {
   Bar,
   BarChart,
@@ -9,7 +19,6 @@ import {
   Pie,
   PieChart,
   ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -19,6 +28,7 @@ import {
   MoneyCollectOutlined,
   InboxOutlined,
   CreditCardOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import useStatistic from "@/app/hook/api/useStatistic";
 const { RangePicker } = DatePicker;
@@ -33,9 +43,11 @@ const DashboardOverview = () => {
     statisticOverview,
     statisticByMonthOverview,
     statisticByDateOverview,
+    bestSellingProduct,
     fetchStatisticOverview,
     fetchStatisticByMonthOverview,
     fetchStatisticByDateOverview,
+    fetchBestSellingProduct,
   } = useStatistic();
   const COLORS = ["#0088FE", "#FF8042"];
 
@@ -52,6 +64,7 @@ const DashboardOverview = () => {
   useEffect(() => {
     fetchStatisticOverview();
     fetchStatisticByMonthOverview();
+    fetchBestSellingProduct();
   }, []);
 
   useEffect(() => {
@@ -85,7 +98,14 @@ const DashboardOverview = () => {
 
   const statCards = [
     {
-      title: "Doanh thu dự kiến",
+      title: (
+        <Flex gap={10} align="center">
+          Doanh thu dự kiến
+          <Tooltip title="Tổng số tiền dựa trên tổng số tiền của đơn hàng">
+            <InfoCircleOutlined style={{ color: "#8c8c8c" }} />
+          </Tooltip>
+        </Flex>
+      ),
       value: `${formatCurrency(
         statisticByDateOverview.total_revenue != null
           ? statisticByDateOverview.total_revenue
@@ -96,7 +116,14 @@ const DashboardOverview = () => {
       border: "#b7eb8f",
     },
     {
-      title: "Doanh thu thực tế",
+      title: (
+        <Flex gap={10} align="center">
+          Doanh thu thực tế
+          <Tooltip title="Tổng số tiền khách đã thanh toán cho đơn hàng đã hoàn thành.">
+            <InfoCircleOutlined style={{ color: "#8c8c8c" }} />
+          </Tooltip>
+        </Flex>
+      ),
       value: `${formatCurrency(
         statisticByDateOverview.actual_revenue != null
           ? statisticByDateOverview.actual_revenue
@@ -251,6 +278,74 @@ const DashboardOverview = () => {
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
+          </Card>
+        </Col>
+      </Row>
+      <Row gutter={16} style={{ marginTop: 24 }}>
+        <Col span={12}>
+          <Card title="Sản phẩm bán chạy" style={{ borderRadius: 12 }}>
+            <List
+              itemLayout="horizontal"
+              dataSource={bestSellingProduct.bestSelling}
+              renderItem={(item) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        style={{ width: 48, height: 48, borderRadius: 8 }}
+                      />
+                    }
+                    title={<span>{item.name}</span>}
+                    description={
+                      <>
+                        <span>
+                          Đã bán: <b>{item.quantitySold}</b>
+                        </span>
+                        <br />
+                        <span>
+                          Doanh thu: <b>{formatCurrency(item.revenue)}</b>
+                        </span>
+                      </>
+                    }
+                  />
+                </List.Item>
+              )}
+            />
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card title="Sản phẩm bán chậm" style={{ borderRadius: 12 }}>
+            <List
+              itemLayout="horizontal"
+              dataSource={bestSellingProduct.lessSelling}
+              renderItem={(item) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        style={{ width: 48, height: 48, borderRadius: 8 }}
+                      />
+                    }
+                    title={<span>{item.name}</span>}
+                    description={
+                      <>
+                        <span>
+                          Đã bán: <b>{item.quantitySold}</b>
+                        </span>
+                        <br />
+                        <span>
+                          Doanh thu: <b>{formatCurrency(item.revenue)}</b>
+                        </span>
+                      </>
+                    }
+                  />
+                </List.Item>
+              )}
+            />
           </Card>
         </Col>
       </Row>

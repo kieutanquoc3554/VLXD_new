@@ -7,6 +7,7 @@ export default function useStatistic() {
   const [statisticOverview, setStatisticOverview] = useState([]);
   const [statisticByMonthOverview, setStatisticByMonthOverview] = useState([]);
   const [statisticByDateOverview, setStatisticByDateOverview] = useState([]);
+  const [bestSellingProduct, setBestSellingProduct] = useState([]);
 
   const fetchStatisticOverview = async () => {
     try {
@@ -42,12 +43,30 @@ export default function useStatistic() {
       message.error(error.message);
     }
   };
+
+  const fetchBestSellingProduct = async () => {
+    try {
+      const statistic = await axios.get(
+        "http://localhost:3000/api/statistic/overview/bestSelling"
+      );
+      if (statistic) {
+        setBestSellingProduct(statistic.data);
+      }
+    } catch (error) {
+      message.error(
+        "Có lỗi khi lấy danh sách sản phẩm bán chạy!",
+        error.message
+      );
+    }
+  };
   return {
     statisticOverview,
     statisticByMonthOverview,
     statisticByDateOverview,
+    bestSellingProduct,
     fetchStatisticOverview,
     fetchStatisticByMonthOverview,
     fetchStatisticByDateOverview,
+    fetchBestSellingProduct,
   };
 }
