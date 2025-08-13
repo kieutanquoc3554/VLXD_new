@@ -25,6 +25,11 @@ export async function GET() {
 
 export async function POST(req) {
   const isProduction = process.env.NODE_ENV === "production";
+  const headers = {
+    "Access-Control-Allow-Origin": "https://vlxd-new.vercel.app",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
   try {
     const body = await req.json();
     const { email, password } = body;
@@ -79,7 +84,10 @@ export async function POST(req) {
       new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     );
 
-    const res = NextResponse.json({ message: "Đăng nhập thành công!" });
+    const res = NextResponse.json(
+      { message: "Đăng nhập thành công!" },
+      { headers }
+    );
 
     res.cookies.set("token", token, {
       httpOnly: true,
